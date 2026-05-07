@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alcance - Gestão Territorial APS</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+
+    .banner {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      position: relative;
+      background:
+        radial-gradient(circle at top right, rgba(59,130,246,0.25), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(16,185,129,0.2), transparent 35%),
+        #0f172a;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+      align-items: center;
+    }
+
+    .content {
+      animation: fadeUp 1s ease;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(59,130,246,0.15);
+      border: 1px solid rgba(59,130,246,0.4);
+      color: #93c5fd;
+      margin-bottom: 24px;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1.1;
+      margin-bottom: 24px;
+      font-weight: 800;
+    }
+
+    h1 span {
+      color: #38bdf8;
+    }
+
+    .description {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #cbd5e1;
+      margin-bottom: 32px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .btn {
+      padding: 14px 24px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0ea5e9, #2563eb);
+      color: white;
+      box-shadow: 0 10px 30px rgba(37,99,235,0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #e2e8f0;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.08);
+    }
+
+    .panel {
+      background: rgba(15,23,42,0.75);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+      padding: 28px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+      animation: fadeUp 1.2s ease;
+    }
+
+    .panel h2 {
+      margin-bottom: 24px;
+      color: #f8fafc;
+      font-size: 1.6rem;
+    }
+
+    .card-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 18px;
+      padding: 20px;
+      transition: 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(56,189,248,0.4);
+      background: rgba(56,189,248,0.06);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      color: #38bdf8;
+      font-size: 1.05rem;
+    }
+
+    .card p {
+      color: #cbd5e1;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 760px;
+      background: #111827;
+      border-radius: 24px;
+      padding: 32px;
+      border: 1px solid rgba(255,255,255,0.08);
+      animation: fadeUp 0.4s ease;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 18px;
+      color: #38bdf8;
+    }
+
+    .modal-content p {
+      color: #e2e8f0;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .close {
+      margin-top: 20px;
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: #2563eb;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .banner {
+        padding: 60px 20px;
+      }
+
+      .description {
+        font-size: 1rem;
+      }
+    }
+
+    .before {
+        background: #7f1d1d;
+    }
+
+    .after {
+        background: #065f46;
+    }
+
+    .split {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+  </style>
+</head>
+<body>
+
+<section class="banner">
+  <div class="container">
+
+    <div class="content">
+      <div class="tag">APS • Territorialização • Inteligência em Saúde</div>
+
+      <h1>
+        Gestão territorial baseada em <span>dados confiáveis</span>
+      </h1>
+
+      <p class="description">
+        O Alcance evolui para consolidar uma estrutura integrada de gestão territorial da Atenção Primária à Saúde, fortalecendo a responsabilidade sanitária, a qualificação dos dados e o planejamento estratégico das equipes no município.
+      </p>
+
+      <div class="buttons">
+        <a class="btn btn-primary" onclick="openModal('modal1')">Explorar avanços</a>
+        <a class="btn btn-secondary" onclick="openModal('modal2')">Impacto na APS</a>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Principais avanços</h2>
+
+      <div class="card-grid">
+
+        <div class="card" onclick="openModal('territorio')">
+          <h3>Territorialização oficial</h3>
+          <p>
+            Áreas de abrangência definidas oficialmente por decreto, garantindo organização e segurança institucional.
+          </p>
+        </div>
+
+        <div class="card" onclick="openModal('microareas')">
+          <h3>Padronização das microáreas</h3>
+          <p>
+            Redução de inconsistências nos registros e fortalecimento da qualidade das informações assistenciais.
+          </p>
+        </div>
+
+        <div class="card" onclick="openModal('dados')">
+          <h3>Inteligência territorial</h3>
+          <p>
+            Uso de dados territoriais e setores censitários para planejamento estratégico e análise de vulnerabilidades.
+          </p>
+        </div>
+
+        <div class="card" onclick="openModal('integracao')">
+          <h3>Integração entre equipes</h3>
+          <p>
+            Visualização compartilhada dos territórios para melhorar encaminhamentos e continuidade do cuidado.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="modal" id="territorio">
+  <div class="modal-content">
+    <h2>Territorialização oficial da APS</h2>
+    <p>
+      A definição oficial das áreas de abrangência estabelece uma base territorial única para o município, fortalecendo a responsabilidade sanitária das equipes e reduzindo conflitos operacionais.
+    </p>
+    <p>
+      Essa estrutura melhora o planejamento assistencial, garante maior rastreabilidade das ações e cria uma referência institucional sólida para organização da rede.
+    </p>
+
+<iframe src="https://www.google.com/maps/d/embed?mid=1eyHaUmgde3d_SB54TWCWEo4ScTZJweg&ehbc=2E312F" width="100%" height="480"></iframe>
+
+    <button class="close" onclick="closeModal('territorio')">Fechar</button>
+  </div>
+</div>
+
+<div class="modal" id="microareas">
+  <div class="modal-content">
+    <h2>Padronização das microáreas</h2>
+    <p>
+      As microáreas foram organizadas e vinculadas corretamente às equipes responsáveis, reduzindo registros incorretos e melhorando a consistência dos dados assistenciais.
+    </p>
+    <p>
+      Com informações mais confiáveis, a gestão amplia sua capacidade de identificar demandas, monitorar territórios e qualificar o planejamento das ações de saúde.
+    </p>
+<iframe src="https://www.google.com/maps/d/embed?mid=16fmvKLqYx9dQ7GLffCmr80mK1w67Ek8&ehbc=2E312F" width="100%" height="480"></iframe>	
+    <button class="close" onclick="closeModal('microareas')">Fechar</button>
+  </div>
+</div>
+
+<div class="modal" id="dados">
+  <div class="modal-content">
+    <h2>Inteligência territorial e análise estratégica</h2>
+    <p>
+      O mapa territorial estruturado com base nos setores censitários do IBGE amplia a capacidade analítica do município e fortalece o planejamento territorial da APS.
+    </p>
+    <p>
+      Essa organização permite análises relacionadas à distribuição populacional, vulnerabilidade social, demanda assistencial e priorização de ações no território.
+    </p>
+
+    <div class="subtitle">Organizar o território transforma o cuidado</div>
+
+    <div class="split">
+        <div class="box before" style="width:49%">
+            <h2>ANTES</h2>
+            <p>Território desorganizado<br>
+            Equipes sobrepostas<br>
+            População invisível</p>
+        </div>
+
+        <div class="box after" style="width:49%">
+            <h2>DEPOIS</h2>
+            <p>Território definido<br>
+            Equipes equilibradas<br>
+            Cuidado garantido</p>
+        </div>	
+</div>
+  <h2>Antes era sorte.<br>Hoje é estratégia.</h2>
+<p>    <button class="close" onclick="closeModal('dados')">Fechar</button></p>
+  </div>
+</div>
+
+<div class="modal" id="integracao">
+  <div class="modal-content">
+    <h2>Integração e coordenação do cuidado</h2>
+    <p>
+      A visualização compartilhada dos territórios fortalece a comunicação entre equipes, reduz fragmentações e melhora o fluxo de encaminhamentos na rede.
+    </p>
+    <p>
+      O resultado é uma APS mais integrada, organizada e preparada para garantir continuidade do cuidado à população.
+    </p>
+
+
+	
+			<div class="center">
+        Quando você organiza o território…<br>
+        você transforma o cuidado.
+    </div>
+    </div>
+    <button class="close" onclick="closeModal('integracao')">Fechar</button>
+  </div>
+</div>
+
+<div class="modal" id="modal1">
+  <div class="modal-content">
+    <h2>Uma nova estrutura para gestão territorial</h2>
+    <p>
+      O Alcance deixa de atuar apenas como ferramenta operacional e passa a consolidar uma base estruturada de inteligência territorial para apoio à gestão da Atenção Primária.
+    </p>
+    <p>
+      A integração entre territorialização, microáreas, dados assistenciais e planejamento estratégico fortalece a capacidade de tomada de decisão do município.
+    </p>
+    <button class="close" onclick="closeModal('modal1')">Fechar</button>
+  </div>
+</div>
+
+<div class="modal" id="modal2">
+  <div class="modal-content">
+    <h2>Impactos diretos na APS</h2>
+    <p>
+      As melhorias implementadas fortalecem princípios centrais da Atenção Primária, como territorialização, adscrição, responsabilidade sanitária e coordenação do cuidado.
+    </p>
+    <p>
+      Com dados mais precisos e territórios organizados, as equipes conseguem atuar com maior efetividade, melhorar o acompanhamento da população e apoiar uma gestão mais orientada por evidências.
+    </p>
+    <button class="close" onclick="closeModal('modal2')">Fechar</button>
+  </div>
+</div>
+
+<script>
+  function openModal(id) {
+    document.getElementById(id).style.display = 'flex';
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+  }
+
+  window.onclick = function(event) {
+    document.querySelectorAll('.modal').forEach(modal => {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
