@@ -1,0 +1,220 @@
+:root {
+  --verde: #3f7f3f;
+  --verde-claro: #e8f4e8;
+  --rosa: #e85b8a;
+  --rosa-claro: #fde8f0;
+  --texto: #273327;
+  --branco: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--texto);
+background-size: 100%;
+background-attachment: fixed;
+background-repeat: no-repeat;
+background-image: linear-gradient(180deg, #ffffff 0%, #f7fff7 55%, #fff4f8 100%), url('logo-saude-mulher-osasco1.jpeg');
+}
+
+.topo {
+  text-align: center;
+  padding: 28px 20px 18px;
+  background: var(--branco);
+  border-bottom: 5px solid var(--rosa);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+.logo {
+  max-width: 920px;
+  width: 90%;
+  height: auto;
+}
+
+
+.logo1 {
+  max-width: 1500px;
+  width: 90%;
+  height: auto;
+}
+
+.topo h1 {
+  color: var(--verde);
+  margin: 10px 0 0;
+  font-size: 34px;
+
+
+
+
+}
+
+.topo p {
+  color: var(--rosa);
+  font-weight: bold;
+  margin: 5px 0 0;
+  letter-spacing: 1px;
+}
+
+.container {
+  max-width: 1050px;
+  margin: auto;
+  padding: 28px 18px;
+}
+
+.hero {
+  text-align: center;
+  background: var(--branco);
+  border-radius: 24px;
+  padding: 34px 24px;
+  margin-bottom: 28px;
+  border: 1px solid #e7e7e7;
+}
+
+.hero h2 {
+  color: var(--verde);
+  margin-top: 0;
+  font-size: 30px;
+}
+
+.hero p {
+  font-size: 18px;
+}
+
+.botoes {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.botao, button {
+  border: none;
+  border-radius: 999px;
+  padding: 14px 24px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.2s;
+  font-size: 16px;
+}
+
+.botao:hover, button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.verde {
+  background: var(--verde);
+  color: white;
+}
+
+.rosa {
+  background: var(--rosa);
+  color: white;
+}
+
+.card {
+  background: var(--branco);
+  border-radius: 24px;
+  padding: 26px;
+  margin-bottom: 28px;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.07);
+  border-left: 8px solid var(--verde);
+}
+
+.card:nth-of-type(3) {
+  border-left-color: var(--rosa);
+}
+
+.card h2 {
+  margin-top: 0;
+  color: var(--verde);
+}
+
+.upload-box, .form-links {
+  display: grid;
+  gap: 12px;
+  margin: 18px 0;
+}
+
+input[type="file"],
+input[type="text"],
+input[type="url"] {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #d6d6d6;
+  border-radius: 14px;
+  font-size: 16px;
+  background: #fff;
+}
+
+button {
+  background: var(--verde);
+  color: #fff;
+}
+
+.form-links button {
+  background: var(--rosa);
+}
+
+.lista {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.item {
+  background: #fbfbfb;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.item strong {
+  color: var(--verde);
+}
+
+.item a {
+  color: var(--rosa);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.remover {
+  background: #999;
+  padding: 10px 16px;
+  font-size: 14px;
+}
+
+footer {
+  text-align: center;
+  padding: 22px;
+  background: var(--verde);
+  color: white;
+  margin-top: 20px;
+}
+
+@media (max-width: 650px) {
+  .topo h1 {
+    font-size: 26px;
+	
+  }
+
+  .hero h2 {
+    font-size: 24px;
+  }
+
+  .item {
+    align-items: flex-start;
+  }
+}
