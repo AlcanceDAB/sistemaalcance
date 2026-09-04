@@ -122,6 +122,20 @@
       background: rgba(255,255,255,0.08);
     }
 
+.btn-intranet {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.35);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-intranet:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, #059669, #047857);
+}
+   
     .panel {
       background: rgba(15,23,42,0.75);
       border: 1px solid rgba(255,255,255,0.08);
@@ -312,6 +326,13 @@
       <div class="buttons">
         <button id="btn-explorar-avancos" class="btn btn-primary" onclick="openModal('modal1')">Explorar avanços</button>
         <button id="btn-impacto-aps" class="btn btn-secondary" onclick="openModal('modal2')">Impacto na APS</button>
+        
+<a href="http://172.20.15.152:8080/alcance/" class="btn btn-intranet" target="_blank" rel="noopener noreferrer">
+    <img src="faviconA_500x476.png" alt="Logo Intranet" style="width: 20px; height: 20px; vertical-align: middle;">
+    Acessar Intranet
+  </a>
+       
+      
       </div>
     </div>
 
