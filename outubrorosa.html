@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+function getLoca() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(success, error);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function success(position) { window.open("https://maps.google.com/maps?q="+ position.coords.latitude +","+position.coords.longitude+ "&t=&z=13&ie=UTF8&iwloc=&output=embed","gmap_canvas");}
+function error() {   alert("Sorry, no position available.");}
+</script>
+
+
+<body onload="return getLoca();">
+<h1>HTML Geo</h1>
+
+
+
+
+<?/*
+<button onclick="getLocation()">Try It</button>
+
+<p id="demo"></p>
+
+<script>
+
+const x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {     navigator.geolocation.getCurrentPosition(success, error);  } else {     x.innerHTML = "Geolocation is not supported by this browser.";  } }
+
+function success(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+   window.open("https://maps.google.com/maps?q="+ position.coords.latitude +","+position.coords.longitude+ "&t=&z=13&ie=UTF8&iwloc=&output=embed","gmap_canvas");
+}
+
+function error() {  alert("Sorry, no position available.");}
+</script>
+*/
+?>
+</body>
