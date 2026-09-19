@@ -377,7 +377,7 @@
         <button id="btn-explorar-avancos" class="btn btn-primary" onclick="openModal('modal1')">Visão Geral do Sistema</button>
         <button id="btn-impacto-aps" class="btn btn-secondary" onclick="openModal('modal2')">Impactos na APS</button>
         
-        <a href="http://172.20.15.152:8080/alcance/" class="btn btn-intranet" target="_blank" rel="noopener noreferrer" title="ACESSAR ALCANCE">
+        <a href="http://172.20.15.152:8080/alcance/" class="btn btn-intranet" target="_blank" id="modal_restrito" rel="noopener noreferrer" title="ACESSAR ALCANCE">
           <img src="faviconA_500x476.png" alt="Logo Intranet" style="width: 20px; height: 20px; vertical-align: middle;">
           Acesso Restrito
         </a>
@@ -395,7 +395,7 @@
       <div class="card-grid">
 
         <!-- LINK PARA O CARD EDUCATIVO C1 CRIADO ANTERIORMENTE -->
-        <a href="monitoramento_c1.html" class="card card-featured">
+        <a href="monitoramento_c1.html" class="card card-featured" id="modal_monitoramento_c1">
           <div>
             <h3>Guia Interativo: Indicador C1 - Mais Acesso</h3>
             <p>Cards educativos com simulador interativo, parâmetros de agenda e boas práticas de registro no e-SUS APS.</p>
