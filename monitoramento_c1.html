@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descomplicando o Indicador C1: Mais Acesso à APS - Alcance</title>
+    <!-- Fonte Inter (Padrão do Sistema Alcance) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Paleta Dark - Sistema Alcance */
+            --bg-dark: #0B132B;          /* Fundo Geral Escuro */
+            --card-bg: #1C2541;          /* Fundo dos Cards */
+            --card-inner: #0F172A;       /* Fundo de Elementos Internos (Inputs/Caixas) */
+            --border: #334155;           /* Bordas Suaves para Escuro */
+            
+            --primary-accent: #38BDF8;   /* Azul Claro / Neon Destaque */
+            --secondary-accent: #60A5FA; /* Azul Interativo */
+            
+            --text-main: #F8FAFC;        /* Texto Principal Vivo */
+            --text-muted: #94A3B8;       /* Texto Secundário */
+            
+            /* Status Badges - Ajustados para Dark Mode */
+            --badge-otimo-bg: #064E3B;
+            --badge-otimo-txt: #6EE7B7;
+            --badge-bom-bg: #075985;
+            --badge-bom-txt: #7DD3FC;
+            --badge-suf-bg: #78350F;
+            --badge-suf-txt: #FDE68A;
+            --badge-reg-bg: #7F1D1D;
+            --badge-reg-txt: #FCA5A5;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+        }
+
+        .header-tag {
+            display: inline-block;
+            background-color: rgba(56, 189, 248, 0.15);
+            color: var(--primary-accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .header h1 {
+            color: var(--text-main);
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        /* Linha de acento superior em azul neon */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: var(--primary-accent);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-accent);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-tag {
+            align-self: flex-start;
+            background-color: var(--card-inner);
+            color: var(--secondary-accent);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
+        .card p, .card ul {
+            font-size: 0.925rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .card strong {
+            color: var(--text-main);
+        }
+
+        .card ul {
+            padding-left: 20px;
+        }
+
+        .card ul li {
+            margin-bottom: 8px;
+        }
+
+        .card ul li::marker {
+            color: var(--primary-accent);
+        }
+
+        /* Botão Interativo Dark */
+        .btn-toggle {
+            background-color: var(--secondary-accent);
+            color: #0B132B;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.875rem;
+            margin-top: auto;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn-toggle:hover {
+            background-color: var(--primary-accent);
+        }
+
+        .details-content {
+            display: none;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px dashed var(--border);
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .details-content strong {
+            color: var(--primary-accent);
+        }
+
+        /* Simulador Interativo Dark */
+        .calculator {
+            background-color: var(--card-inner);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-top: 8px;
+        }
+
+        .calculator label {
+            display: block;
+            font-size: 0.825rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .calculator input {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 12px;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .calculator input:focus {
+            border-color: var(--primary-accent);
+        }
+
+        .result-box {
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 12px;
+            display: none;
+        }
+
+        .badge-otimo { background-color: var(--badge-otimo-bg); color: var(--badge-otimo-txt); border: 1px solid var(--badge-otimo-txt); }
+        .badge-bom { background-color: var(--badge-bom-bg); color: var(--badge-bom-txt); border: 1px solid var(--badge-bom-txt); }
+        .badge-suficiente { background-color: var(--badge-suf-bg); color: var(--badge-suf-txt); border: 1px solid var(--badge-suf-txt); }
+        .badge-regular { background-color: var(--badge-reg-bg); color: var(--badge-reg-txt); border: 1px solid var(--badge-reg-txt); }
+
+        .formula-box {
+            background-color: var(--bg-dark);
+            padding: 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            text-align: center;
+            color: var(--primary-accent);
+            border: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <span class="header-tag">
+ <img src="faviconA_500x476.png" alt="Logo Intranet" style="width: 20px; height: 20px; vertical-align: middle;"> Sistema Alcance</span>
+        <h1>Guia Rápido: Indicador C1 - Mais Acesso</h1>
+        <p>Saiba como o indicador de demanda programada vs. espontânea impacta a rotina de trabalho na Atenção Primária.</p>
+    </div>
+
+    <div class="grid-container">
+
+        <!-- CARD 1: Conceito -->
+        <div class="card">
+            <span class="card-tag">Conceito</span>
+            <h2>1. Qual é o objetivo do C1?</h2>
+            <p>O indicador avalia o <strong>equilíbrio da agenda</strong> da equipe, medindo o percentual de atendimentos de demanda programada em relação ao total:</p>
+            <ul>
+                <li><strong>Garante acompanhamento:</strong> Para pacientes em condições crônicas e ciclos de vida.</li>
+                <li><strong>Mede o acesso:</strong> Garante acolhimento às demandas do dia sem fechar as portas para ações programadas.</li>
+            </ul>
+            <button class="btn-toggle" onclick="toggleDetails('details1')">Ver Fórmula Simplificada</button>
+            <div id="details1" class="details-content">
+                <strong>Fórmula do Indicador:</strong>
+                <div class="formula-box">
+                    (Programados / (Programados + Espontâneos)) × 100
+                </div>
+                <br><em>*Extração mensal pelo SIAPS no 20º dia útil.</em>
+            </div>
+        </div>
+
+        <!-- CARD 2: Prática no e-SUS -->
+        <div class="card">
+            <span class="card-tag">Prática no e-SUS</span>
+            <h2>2. Como registrar no Prontuário?</h2>
+            <p>No <strong>Modelo de Atendimento Individual</strong>, a marcação correta do <strong>Tipo de Demanda</strong> define a pontuação:</p>
+            <ul>
+                <li><strong>Programada:</strong> Consulta agendada programada, Cuidado continuado ou Consulta agendada.</li>
+                <li><strong>Espontânea:</strong> Escuta inicial/orientação, Consulta no dia ou Atendimento de urgência.</li>
+            </ul>
+            <button class="btn-toggle" onclick="toggleDetails('details2')">Equipes e CBOs Elegíveis</button>
+            <div id="details2" class="details-content">
+                <strong>CBOs Validados:</strong>
+                <ul>
+                    <li>Médico da ESF, Generalista, de Família, Clínico, Ginecologista/Obstetra</li>
+                    <li>Enfermeiro da ESF e Enfermeiro Geral</li>
+                </ul>
+                <strong>Equipes:</strong> eSF (Tipo 70) e eAP (Tipo 76).
+            </div>
+        </div>
+
+        <!-- CARD 3: Parâmetros -->
+        <div class="card">
+            <span class="card-tag">Avaliação</span>
+            <h2>3. Qual é a faixa ideal?</h2>
+            <p>O objetivo é manter o percentual na faixa verde. Nem zerado (só urgência) nem 100% (agenda fechada ao público).</p>
+            <ul>
+                <li><strong>Ótimo:</strong> Maior que 50% até 70%</li>
+                <li><strong>Bom:</strong> Maior que 30% até 50%</li>
+                <li><strong>Suficiente:</strong> Maior que 10% até 30%</li>
+                <li><strong>Regular:</strong> Até 10% ou maior que 70%</li>
+            </ul>
+            <button class="btn-toggle" onclick="toggleDetails('details3')">Interpretando o Resultado</button>
+            <div id="details3" class="details-content">
+                <strong>Interpretação em Saúde:</strong><br>
+                • <strong>≤ 10%:</strong> Modelo excessivamente focado na demanda espontânea/urgência.<br>
+                • <strong>> 70%:</strong> Pouca abertura para acolher necessidades imediatas da comunidade.
+            </div>
+        </div>
+
+        <!-- CARD 4: Simulador -->
+        <div class="card">
+            <span class="card-tag">Ferramenta</span>
+            <h2>4. Simulador de Parâmetro</h2>
+            <p>Insira os dados mensais de atendimento para conferir o enquadramento da equipe:</p>
+            
+            <div class="calculator">
+                <label for="progInput">Atendimentos Programados/Continuados:</label>
+                <input type="number" id="progInput" placeholder="Ex: 120" min="0">
+
+                <label for="espInput">Atendimentos Espontâneos/Escuta:</label>
+                <input type="number" id="espInput" placeholder="Ex: 80" min="0">
+
+                <button class="btn-toggle" onclick="calcularIndicador()">Calcular Resultado</button>
+                
+                <div id="resultBox" class="result-box"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleDetails(id) {
+            const content = document.getElementById(id);
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        }
+
+        function calcularIndicador() {
+            const prog = parseFloat(document.getElementById('progInput').value) || 0;
+            const esp = parseFloat(document.getElementById('espInput').value) || 0;
+            const total = prog + esp;
+            const resultBox = document.getElementById('resultBox');
+
+            if (total === 0) {
+                resultBox.style.display = "block";
+                resultBox.className = "result-box badge-regular";
+                resultBox.innerText = "Insira valores válidos de atendimento.";
+                return;
+            }
+
+            const percentual = (prog / total) * 100;
+            let classificacao = "";
+            let badgeClass = "";
+
+            if (percentual > 50 && percentual <= 70) {
+                classificacao = "ÓTIMO";
+                badgeClass = "badge-otimo";
+            } else if (percentual > 30 && percentual <= 50) {
+                classificacao = "BOM";
+                badgeClass = "badge-bom";
+            } else if (percentual > 10 && percentual <= 30) {
+                classificacao = "SUFICIENTE";
+                badgeClass = "badge-suficiente";
+            } else {
+                classificacao = "REGULAR";
+                badgeClass = "badge-regular";
+            }
+
+            resultBox.style.display = "block";
+            resultBox.className = `result-box ${badgeClass}`;
+            resultBox.innerHTML = `Resultado: ${percentual.toFixed(1)}%<br>Classificação: ${classificacao}`;
+        }
+    </script>
+</body>
+</html>
