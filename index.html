@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <!-- Google tag (gtag.js) -->
@@ -13,7 +13,7 @@
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alcance - Gestão Territorial APS</title>
+  <title>Sistema Alcance - Gestão, Territorialização e Indicadores APS</title>
   <link rel="icon" type="image/x-icon" href="faviconA_500x476.png">
   <style>
     * {
@@ -34,7 +34,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 40px 20px;
+      padding: 60px 20px;
       position: relative;
       background:
         radial-gradient(circle at top right, rgba(59,130,246,0.25), transparent 30%),
@@ -48,11 +48,27 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 40px;
-      align-items: center;
+      align-items: flex-start;
     }
 
     .content {
       animation: fadeUp 1s ease;
+    }
+
+    .header-brand {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header-brand img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 10px;
+    }
+
+    .header-brand h1 {
+      font-size: 2rem;
+      letter-spacing: 1px;
     }
 
     .tag {
@@ -68,8 +84,8 @@
     }
 
     h1 {
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
-      line-height: 1.1;
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      line-height: 1.15;
       margin-bottom: 24px;
       font-weight: 800;
     }
@@ -100,6 +116,9 @@
       cursor: pointer;
       border: none;
       font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .btn-primary {
@@ -122,20 +141,17 @@
       background: rgba(255,255,255,0.08);
     }
 
-.btn-intranet {
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: white;
-  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.35);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
+    .btn-intranet {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      box-shadow: 0 10px 30px rgba(16, 185, 129, 0.35);
+    }
 
-.btn-intranet:hover {
-  transform: translateY(-3px);
-  background: linear-gradient(135deg, #059669, #047857);
-}
-   
+    .btn-intranet:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(135deg, #059669, #047857);
+    }
+
     .panel {
       background: rgba(15,23,42,0.75);
       border: 1px solid rgba(255,255,255,0.08);
@@ -146,45 +162,74 @@
       animation: fadeUp 1.2s ease;
     }
 
-    .panel h2 {
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       margin-bottom: 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-bottom: 12px;
+    }
+
+    .panel-header h2 {
       color: #f8fafc;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #38bdf8;
+      margin: 20px 0 12px 0;
+      font-weight: bold;
     }
 
     .card-grid {
       display: grid;
-      gap: 18px;
+      gap: 16px;
     }
 
     .card {
       background: rgba(255,255,255,0.03);
       border: 1px solid rgba(255,255,255,0.06);
       border-radius: 18px;
-      padding: 20px;
+      padding: 18px;
       transition: 0.3s ease;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      text-decoration: none;
     }
 
     .card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-3px);
       border-color: rgba(56,189,248,0.4);
       background: rgba(56,189,248,0.06);
     }
 
+    /* Card em Destaque Especial */
+    .card-featured {
+      background: linear-gradient(135deg, rgba(56,189,248,0.1), rgba(37,99,235,0.1));
+      border: 1px solid rgba(56,189,248,0.3);
+    }
+
+    .card-featured:hover {
+      background: linear-gradient(135deg, rgba(56,189,248,0.2), rgba(37,99,235,0.2));
+      border-color: #38bdf8;
+    }
+
     .card h3 {
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       color: #38bdf8;
       font-size: 1.05rem;
     }
 
     .card p {
       color: #cbd5e1;
-      line-height: 1.6;
-      font-size: 0.95rem;
+      line-height: 1.5;
+      font-size: 0.9rem;
       margin-bottom: 12px;
     }
 
@@ -293,7 +338,7 @@
 
     @media (max-width: 768px) {
       .banner {
-        padding: 60px 20px;
+        padding: 40px 16px;
       }
 
       .description {
@@ -310,69 +355,88 @@
 <body>
 
 <section class="banner">
- <h1 align="center" style="top:10">
-  <img src="faviconA_500x476.png" alt="Logo Intranet" style="width: 80px; height: 80px; vertical-align: middle;">
-        <BR>SISTEMA ALCANCE 
-      </h1>	
- <div class="container">
+  <div class="container">
 
     <div class="content">
-      <div class="tag">APS • Territorialização • Inteligência em Saúde</div>
+      <div class="header-brand" align="center">
+        <img src="faviconA_500x476.png" alt="Logo Sistema Alcance">
+        <h1>SISTEMA ALCANCE</h1>
+      </div>
+
+      <div class="tag">APS • Territorialização • Indicadores & Qualificação</div>
 
       <h1>
-        Gestão territorial baseada em <span>dados confiáveis</span>
+        Gestão em Saúde baseada em <span>dados & evidências</span>
       </h1>
 
       <p class="description">
-        O Alcance evolui para consolidar uma estrutura integrada de gestão territorial da Atenção Primária à Saúde, fortalecendo a responsabilidade sanitária, a qualificação dos dados e o planejamento estratégico das equipes no município.
+        O Alcance é uma plataforma integrada voltada à gestão territorial, suporte técnico aos indicadores em saúde e fortalecimento do planejamento estratégico na Atenção Primária à Saúde (APS).
       </p>
 
       <div class="buttons">
-        <button id="btn-explorar-avancos" class="btn btn-primary" onclick="openModal('modal1')">Explorar avanços</button>
-        <button id="btn-impacto-aps" class="btn btn-secondary" onclick="openModal('modal2')">Impacto na APS</button>
+        <button id="btn-explorar-avancos" class="btn btn-primary" onclick="openModal('modal1')">Visão Geral do Sistema</button>
+        <button id="btn-impacto-aps" class="btn btn-secondary" onclick="openModal('modal2')">Impactos na APS</button>
         
-<a href="http://172.20.15.152:8080/alcance/" class="btn btn-intranet" target="_blank" rel="noopener noreferrer" title="ACESSAR ALCANCE">
-    <img src="faviconA_500x476.png" alt="Logo Intranet" style="width: 20px; height: 20px; vertical-align: middle;">
-    Acesso  Restrito
-  </a>
-       
-      
+        <a href="http://172.20.15.152:8080/alcance/" class="btn btn-intranet" target="_blank" rel="noopener noreferrer" title="ACESSAR ALCANCE">
+          <img src="faviconA_500x476.png" alt="Logo Intranet" style="width: 20px; height: 20px; vertical-align: middle;">
+          Acesso Restrito
+        </a>
       </div>
     </div>
 
     <div class="panel">
-      <h2>Principais avanços  <img src="faviconA_500x476.png" alt="Logo Intranet" style="width: 40px; height: 40px; vertical-align: middle;"></h2>
+      <div class="panel-header">
+        <h2>Painel Módulos & Recursos</h2>
+        <img src="faviconA_500x476.png" alt="Logo Intranet" style="width: 36px; height: 36px;">
+      </div>
 
+      <!-- SEÇÃO 1: EDUCAÇÃO & INDICADORES DA APS -->
+      <div class="section-title">💡 Qualificação & Indicadores APS</div>
+      <div class="card-grid">
+
+        <!-- LINK PARA O CARD EDUCATIVO C1 CRIADO ANTERIORMENTE -->
+        <a href="monitoramento_c11.html" class="card card-featured">
+          <div>
+            <h3>Guia Interativo: Indicador C1 - Mais Acesso</h3>
+            <p>Cards educativos com simulador interativo, parâmetros de agenda e boas práticas de registro no e-SUS APS.</p>
+          </div>
+          <span class="card-action">Acessar Guia Educativo &rarr;</span>
+        </a>
+
+      </div>
+
+      <!-- SEÇÃO 2: TERRITORIALIZAÇÃO E INTELIGÊNCIA -->
+      <div class="section-title">🗺️ Inteligência Territorial</div>
       <div class="card-grid">
 
         <div id="card-territorializacao-oficial" class="card" onclick="openModal('territorio')">
           <div>
-            <h3>Territorialização oficial</h3>
-            <p>Áreas de abrangência definidas oficialmente por decreto, garantindo organização e segurança institucional.</p>
+            <h3>Territorialização Oficial</h3>
+            <p>Áreas de abrangência definidas por decreto, garantindo segurança e responsabilidade sanitária.</p>
           </div>
-          <span class="card-action">Ver detalhes &rarr;</span>
+          <span class="card-action">Ver mapa & detalhes &rarr;</span>
         </div>
 
         <div id="card-padronizacao-microareas" class="card" onclick="openModal('microareas')">
           <div>
-            <h3>Padronização das microáreas</h3>
-            <p>Redução de inconsistências nos registros e fortalecimento da qualidade das informações assistenciais.</p>
+            <h3>Padronização das Microáreas</h3>
+            <p>Organização de vínculos para redução de inconsistências e melhoria dos registros do e-SUS.</p>
           </div>
-          <span class="card-action">Ver detalhes &rarr;</span>
+          <span class="card-action">Ver mapa & detalhes &rarr;</span>
         </div>
 
         <div id="card-inteligencia-territorial" class="card" onclick="openModal('dados')">
           <div>
-            <h3>Inteligência territorial</h3>
-            <p>Uso de dados territoriais e setores censitários para planejamento estratégico e análise de vulnerabilidades.</p>
+            <h3>Análise Estratégica IBGE</h3>
+            <p>Integração com setores censitários para análise de vulnerabilidade e distribuição populacional.</p>
           </div>
           <span class="card-action">Ver detalhes &rarr;</span>
         </div>
 
         <div id="card-integracao-equipes" class="card" onclick="openModal('integracao')">
           <div>
-            <h3>Integração entre equipes</h3>
-            <p>Visualização compartilhada dos territórios para melhorar encaminhamentos e continuidade do cuidado.</p>
+            <h3>Integração entre Equipes</h3>
+            <p>Visualização compartilhada do território para articulação do cuidado e encaminhamentos.</p>
           </div>
           <span class="card-action">Ver detalhes &rarr;</span>
         </div>
@@ -382,11 +446,11 @@
   </div>
 </section>
 
-<!-- Modais -->
+<!-- Modais de Informação -->
 
 <div class="modal" id="territorio">
   <div class="modal-content">
-    <h2>Territorialização oficial da APS</h2>
+    <h2>Territorialização Oficial da APS</h2>
     <p>
       A definição oficial das áreas de abrangência estabelece uma base territorial única para o município, fortalecendo a responsabilidade sanitária das equipes e reduzindo conflitos operacionais.
     </p>
@@ -402,7 +466,7 @@
 
 <div class="modal" id="microareas">
   <div class="modal-content">
-    <h2>Padronização das microáreas</h2>
+    <h2>Padronização das Microáreas</h2>
     <p>
       As microáreas foram organizadas e vinculadas corretamente às equipes responsáveis, reduzindo registros incorretos e melhorando a consistência dos dados assistenciais.
     </p>
@@ -418,7 +482,7 @@
 
 <div class="modal" id="dados">
   <div class="modal-content">
-    <h2>Inteligência territorial e análise estratégica</h2>
+    <h2>Inteligência Territorial e Análise Estratégica</h2>
     <p>
       O mapa territorial estruturado com base nos setores censitários do IBGE amplia a capacidade analítica do município e fortalece o planejamento territorial da APS.
     </p>
@@ -447,7 +511,7 @@
 
 <div class="modal" id="integracao">
   <div class="modal-content">
-    <h2>Integração e coordenação do cuidado</h2>
+    <h2>Integração e Coordenação do Cuidado</h2>
     <p>
       A visualização compartilhada dos territórios fortalece a comunicação entre equipes, reduz fragmentações e melhora o fluxo de encaminhamentos na rede.
     </p>
@@ -465,12 +529,12 @@
 
 <div class="modal" id="modal1">
   <div class="modal-content">
-    <h2>Uma nova estrutura para gestão territorial</h2>
+    <h2>Visão Geral do Sistema Alcance</h2>
     <p>
-      O Alcance deixa de atuar apenas como ferramenta operacional e passa a consolidar uma base estruturada de inteligência territorial para apoio à gestão da Atenção Primária.
+      O Alcance consolida uma base integrada de inteligência territorial e suporte à gestão para a Atenção Primária à Saúde.
     </p>
     <p>
-      A integração entre territorialização, microáreas, dados assistenciais e planejamento estratégico fortalece a capacidade de tomada de decisão do município.
+      Unindo territorialização, monitoramento de indicadores e suporte aos profissionais de saúde, o sistema busca aumentar a confiabilidade dos dados e qualificar a gestão pública.
     </p>
     <button id="btn-fechar-modal1" class="close" onclick="closeModal('modal1')">Fechar</button>
   </div>
@@ -478,12 +542,12 @@
 
 <div class="modal" id="modal2">
   <div class="modal-content">
-    <h2>Impactos diretos na APS</h2>
+    <h2>Impactos Diretos na APS</h2>
     <p>
       As melhorias implementadas fortalecem princípios centrais da Atenção Primária, como territorialização, adscrição, responsabilidade sanitária e coordenação do cuidado.
     </p>
     <p>
-      Com dados mais precisos e territórios organizados, as equipes conseguem atuar com maior efetividade, melhorar o acompanhamento da população e apoiar uma gestão mais orientada por evidências.
+      Com dados mais precisos e apoio pedagógico, as equipes conseguem atuar com maior efetividade, qualificar o acompanhamento da população e otimizar os indicadores municipais.
     </p>
     <button id="btn-fechar-modal2" class="close" onclick="closeModal('modal2')">Fechar</button>
   </div>
@@ -493,7 +557,6 @@
   function openModal(id) {
     document.getElementById(id).style.display = 'flex';
     
-    // Dispara evento para o GA4 ao abrir modal
     if (typeof gtag === 'function') {
       gtag('event', 'abrir_modal', {
         'modal_id': id
@@ -504,7 +567,6 @@
   function closeModal(id) {
     document.getElementById(id).style.display = 'none';
     
-    // Dispara evento para o GA4 ao fechar modal
     if (typeof gtag === 'function') {
       gtag('event', 'fechar_modal', {
         'modal_id': id
@@ -512,7 +574,6 @@
     }
   }
 
-  // Fechar modal ao clicar fora da área de conteúdo
   window.onclick = function(event) {
     document.querySelectorAll('.modal').forEach(modal => {
       if (event.target === modal) {
@@ -521,7 +582,6 @@
     });
   };
 
-  // Fechar modal ao pressionar a tecla 'Esc'
   window.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
       document.querySelectorAll('.modal').forEach(modal => {
