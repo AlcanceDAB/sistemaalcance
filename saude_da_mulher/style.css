@@ -273,3 +273,18 @@ footer {
     text-align: center;
   }
 }
+
+
+        .header-tag {
+            display: inline-block;
+            background-color: rgba(56, 189, 248, 0.15);
+            color: var(--primary-accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
