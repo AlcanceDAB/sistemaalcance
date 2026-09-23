@@ -520,22 +520,26 @@
         <button id="btn-explorar-avancos" class="btn btn-primary" onclick="openModal('modal1')">Visão Geral do Sistema</button>
         <button id="btn-impacto-aps" class="btn btn-secondary" onclick="openModal('modal2')">Impactos na APS</button>
 
-		<form action="http://172.20.15.152:8080/alcance/" method="POST">
-  <input type="hidden" id="URL_OR" name="URL_OR">
-  <input type="hidden" id="timestamp_URL_OR" name="timestamp_URL_OR">
 
-  <button type="submit" class="btn btn-intranet" target="_blank" id="modal_restrito" rel="noopener noreferrer" title="ACESSAR ALCANCE">
-	  <img src="faviconA_500x476.png" alt="Logo Intranet" style="width: 20px; height: 20px; vertical-align: middle;">
-          Acesso Restrito</button>
+<a id="meuLink" href="#" class="btn btn-intranet" target="_blank" id="modal_restrito" rel="noopener noreferrer" title="ACESSAR ALCANCE">	    <img src="faviconA_500x476.png" alt="Logo Intranet" style="width: 20px; height: 20px; vertical-align: middle;">
+          Acesso Restrito</a>
+<script>
+  // 1. Captura a URL atual
+  const urlAtual = window.location.href;
 
-	
+  // 2. Captura o timestamp atual (em milissegundos desde 1970)
+  const timestamp = Date.now();
 
-			
-		</form>
+  // 3. Define a URL de destino
+  const baseUrl = "http://172.20.15.152:8080/alcance/";
 
-<script>  document.getElementById('URL_OR').value = window.location.href;  document.getElementById('timestamp_URL_OR').value = Date.now();</script>
+  // 4. Monta o link utilizando encodeURIComponent para não quebrar a URL
+  const linkElement = document.getElementById("meuLink");
+  linkElement.href = `${baseUrl}?origem=${encodeURIComponent(urlAtual)}&ts=${timestamp}`;
+</script>
 		  
-       
+   
+	
       </div>
     </div>
 
