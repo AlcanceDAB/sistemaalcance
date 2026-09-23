@@ -10,25 +10,6 @@
 
     gtag('config', 'G-38ZMN3E2EZ');
   </script>
-<script src="https://cloudflare.com"></script>
-<script>
-function redirecionarParaIntranet() {
-    const chaveSecreta = "MinhaChaveUltraSecreta123!"; // Deve ser a mesma no PHP
-    const urlIntranet = "http://http://172.20.15.152:8080/alcance/";
-
-    // Pega o timestamp atual arredondado para o minuto atual (muda a cada 60 segundos)
-    // Isso dá uma janela de tolerância para o delay de rede
-    const tempoAtual = Math.floor(Date.now() / 60000).toString();
-
-    // Gera o token criptografado (HMAC-SHA256)
-    const token = CryptoJS.HmacSHA256(tempoAtual, chaveSecreta).toString();
-
-    // Redireciona com o tempo e o token na URL
-    window.location.href = `${urlIntranet}?t=${tempoAtual}&token=${token}`;
-}
-
-	
-</script>
 	
   <!-- Meta Tags Básicas e Configurações -->
   <meta charset="UTF-8">
@@ -539,7 +520,7 @@ function redirecionarParaIntranet() {
         <button id="btn-explorar-avancos" class="btn btn-primary" onclick="openModal('modal1')">Visão Geral do Sistema</button>
         <button id="btn-impacto-aps" class="btn btn-secondary" onclick="openModal('modal2')">Impactos na APS</button>
         
-        <a href="#" onclick="redirecionarParaIntranet();" class="btn btn-intranet" target="_blank" id="modal_restrito" rel="noopener noreferrer" title="ACESSAR ALCANCE">
+        <a href="http://172.20.15.152:8080/alcance/"  class="btn btn-intranet" target="_blank" id="modal_restrito" rel="noopener noreferrer" title="ACESSAR ALCANCE">
           <img src="faviconA_500x476.png" alt="Logo Intranet" style="width: 20px; height: 20px; vertical-align: middle;">
           Acesso Restrito
         </a>
