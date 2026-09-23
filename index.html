@@ -521,21 +521,19 @@
         <button id="btn-impacto-aps" class="btn btn-secondary" onclick="openModal('modal2')">Impactos na APS</button>
 
 
-<a id="meuLink" href="#" class="btn btn-intranet" target="ALCANCE" id="modal_restrito" rel="noopener noreferrer" title="ACESSAR ALCANCE">	    <img src="faviconA_500x476.png" alt="Logo Intranet" style="width: 20px; height: 20px; vertical-align: middle;">
-          Acesso Restrito</a>
+<a id="modal_restrito" href="#" class="btn btn-intranet" target="ALCANCE" rel="noopener noreferrer" title="ACESSAR ALCANCE" onclick="atualizarLink(this)">
+  <img src="faviconA_500x476.png" alt="Logo Intranet" style="width: 20px; height: 20px; vertical-align: middle;">
+  Acesso Restrito
+</a>
+
 <script>
-  // 1. Captura a URL atual
-  const urlAtual = window.location.href;
+  function atualizarLink(elemento) {
+    const urlAtual = window.location.href;
+    const timestamp = Date.now();
+    const baseUrl = "http://172.20.15.152:8080/alcance/";
 
-  // 2. Captura o timestamp atual (em milissegundos desde 1970)
-  const timestamp = Date.now();
-
-  // 3. Define a URL de destino
-  const baseUrl = "http://172.20.15.152:8080/alcance/";
-
-  // 4. Monta o link utilizando encodeURIComponent para não quebrar a URL
-  const linkElement = document.getElementById("meuLink");
-  linkElement.href = `${baseUrl}?origem=${encodeURIComponent(urlAtual)}&ts=${timestamp}`;
+    elemento.href = `${baseUrl}?origem=${encodeURIComponent(urlAtual)}&ts=${timestamp}`;
+  }
 </script>
 		  
    
