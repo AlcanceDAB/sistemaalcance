@@ -519,11 +519,23 @@
       <div class="buttons">
         <button id="btn-explorar-avancos" class="btn btn-primary" onclick="openModal('modal1')">Visão Geral do Sistema</button>
         <button id="btn-impacto-aps" class="btn btn-secondary" onclick="openModal('modal2')">Impactos na APS</button>
-        
-        <a href="http://172.20.15.152:8080/alcance/"  class="btn btn-intranet" target="_blank" id="modal_restrito" rel="noopener noreferrer" title="ACESSAR ALCANCE">
-          <img src="faviconA_500x476.png" alt="Logo Intranet" style="width: 20px; height: 20px; vertical-align: middle;">
-          Acesso Restrito
-        </a>
+
+		<form action="http://172.20.15.152:8080/alcance/" method="POST">
+  <input type="hidden" id="URL_OR" name="URL_OR">
+  <input type="hidden" id="timestamp_URL_OR" name="timestamp_URL_OR">
+
+  <button type="submit" class="btn btn-intranet" target="_blank" id="modal_restrito" rel="noopener noreferrer" title="ACESSAR ALCANCE">
+	  <img src="faviconA_500x476.png" alt="Logo Intranet" style="width: 20px; height: 20px; vertical-align: middle;">
+          Acesso Restrito</button>
+
+	
+
+			
+		</form>
+
+<script>  document.getElementById('URL_OR').value = window.location.href;  document.getElementById('timestamp_URL_OR').value = Date.now();</script>
+		  
+       
       </div>
     </div>
 
