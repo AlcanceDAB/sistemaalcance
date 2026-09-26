@@ -521,11 +521,6 @@
         <button id="btn-impacto-aps" class="btn btn-secondary" onclick="openModal('modal2')">Impactos na APS</button>
 
 
-<a id="modal_restrito" href="#" class="btn btn-intranet" target="ALCANCE" title="ACESSAR ALCANCE" onclick="atualizarLink(this)">
-  <img src="faviconA_500x476.png" alt="Logo Intranet" style="width: 20px; height: 20px; vertical-align: middle;">
-  Acesso Restrito
-</a>
-
 <script>
   function atualizarLink(elemento) {
     const urlAtual = window.location.href;
@@ -535,7 +530,10 @@
     elemento.href = `${baseUrl}?origem=${encodeURIComponent(urlAtual)}&ts=${timestamp}`;
   }
 </script>
-		  
+<a id="modal_restrito" href="#" class="btn btn-intranet" target="ALCANCE" title="ACESSAR ALCANCE" onclick="atualizarLink(this)">
+  <img src="faviconA_500x476.png" alt="Logo Intranet" style="width: 20px; height: 20px; vertical-align: middle;">  Acesso Restrito</a>
+
+  
    
 	
       </div>
@@ -612,6 +610,9 @@
 
     <div class="care-grid">
 
+
+
+
       <!-- CARD: SAÚDE DA MULHER -->
       <a href="https://alcancedab.github.io/sistemaalcance/saude_da_mulher/" class="card-care" id="card-saude-mulher">
         <div>
@@ -634,8 +635,28 @@
         <p>Linha de cuidado para Hipertensão e Diabetes em breve.</p>
       </div>
 
+ <!-- CARD PLACEHOLDER: ALCANCE PUBLICAÇÕES 2 -->
+<div class="card">
+    <h2>Reconhecimento Institucional</h2>
+    <p>Experiência cadastrada e publicada no Acervo Digital do Conselho de Secretários Municipais de Saúde do Estado de São Paulo.</p>
+
+    <a href="https://alcancedab.github.io/sistemaalcance/publicacoes.html" target="_blank" rel="noopener noreferrer" class="btn-primary">
+        Ler Publicação Completa →
+    </a>
+</div>
+
     </div>
+
+
+
+
+
   </div>
+
+
+
+
+
 
 </section>
 
