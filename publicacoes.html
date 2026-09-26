@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-38ZMN3E2EZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-38ZMN3E2EZ');
+  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Alcance | Saúde com Governança Digital na APS de Osasco</title>
+    <meta name="description" content="Plataforma de Governança Digital da Informação na APS para fortalecimento do território, equidade e tomada de decisão em Osasco. Autoria: Érica Lima da Silva e Hermes Sousa Novais.">
+    <meta name="keywords" content="Sistema Alcance, Saúde Digital, APS, Osasco, Governança de Dados, Territorialização, SUS, Érica Lima da Silva, Hermes Sousa Novais">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Redes Sociais -->
+    <meta property="og:title" content="Sistema Alcance — Governança Digital na APS">
+    <meta property="og:description" content="Inovação em saúde pública: integração de dados demográficos, sociais e assistenciais para fortalecimento da Atenção Primária em Osasco.">
+    <meta property="og:type" content="website">
+
+ <!-- Autoria e Propriedade Intelectual -->
+  <meta name="author" content="Hermes Sousa Novais, Matheus Correia Seki">
+  <meta name="copyright" content="© 2026 Matheus Correia Seki, Hermes Sousa Novais. Todos os direitos reservados.">
+  <meta name="designer" content="Hermes Sousa Novais, Matheus Correia Seki">
+  <meta name="publisher" content="Hermes Sousa Novais, Matheus Correia Seki">
+
+  <!-- Funcionalidades do Sistema (Metadados Personalizados e Aplicação) -->
+  <meta name="application-name" content="Alcance">
+  <meta name="category" content="Sistema de Gestão / Saúde / Territorialização">
+  <meta name="system-features" content="Buscador de Estabelecimentos, Buscador de Profissionais, Buscador de Território, Gestão de Ordens de Serviço, Chamados e Sala de Chat Alcance">
+
+  <!-- Open Graph (Para redes sociais como WhatsApp, LinkedIn, Facebook) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Alcance - Sistema de Gestão e Diretoria (DGAPS)">
+  <meta property="og:description" content="Plataforma de gestão com buscadores de estabelecimentos, profissionais e territórios, emissão de ordens de serviço e chat integrado.">
+  <meta property="og:site_name" content="Alcance">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:image" content="https://alcancedab.github.io/sistemaalcance/faviconA_500x476.png">
+				  
+																		  
+    <!-- Fonte Inter Google Fonts -->																				 
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="icon" type="image/x-icon" href="faviconA_500x476.png">
+
+
+
+
+
+
+    <style>
+        :root {
+            --primary: #0F172A;        /* Azul escuro profissional */
+            --primary-accent: #0284C7; /* Azul vívido para destaques */
+            --secondary: #38BDF8;      /* Azul claro para detalhes */
+            --bg-light: #F8FAFC;       /* Fundo suave */
+            --card-bg: #FFFFFF;        /* Fundo dos cards */
+            --text-main: #1E293B;      /* Texto escuro com bom contraste */
+            --text-muted: #64748B;     /* Texto secundário */
+            --border-color: #E2E8F0;  /* Bordas sutis */
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navbar */
+        nav {
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+        }
+
+        .brand {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .brand span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #94A3B8;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #FFFFFF;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #1E293B 100%);
+            color: #FFFFFF;
+            padding: 5rem 1.5rem 6rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background-color: rgba(2, 132, 199, 0.2);
+            border: 1px solid var(--primary-accent);
+            color: var(--secondary);
+            padding: 0.35rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #94A3B8;
+            max-width: 750px;
+            margin: 0 auto 2rem;
+            font-weight: 400;
+        }
+
+        .hero-authors {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .author-chip {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #F8FAFC;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: -3rem auto 4rem;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        /* Cards Style */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.25rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            color: var(--primary-accent);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .stat-box {
+            background-color: var(--bg-light);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--primary-accent);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Lists & Features */
+        .feature-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 1.75rem;
+            margin-bottom: 0.85rem;
+            color: var(--text-main);
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--primary-accent);
+            font-weight: bold;
+        }
+
+        /* Tags */
+        .tag-cloud {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .tag {
+            background-color: #E0F2FE;
+            color: #0369A1;
+            padding: 0.35rem 0.85rem;
+            border-radius: 6px;
+            font-size: 0.825rem;
+            font-weight: 600;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            display: inline-block;
+            background-color: var(--primary-accent);
+            color: #FFFFFF;
+            padding: 0.85rem 1.75rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background-color 0.2s, transform 0.1s;
+            margin-top: 1.5rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #0284C7;
+            transform: translateY(-1px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: #94A3B8;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
+            .nav-links { display: none; }
+            .container { margin-top: -1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navegação Superior -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="brand">SISTEMA <span>ALCANCE</span></a>
+            <ul class="nav-links">
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#resultados">Resultados</a></li>
+                <li><a href="#pilares">Pilares</a></li>
+                <li><a href="#publicacao">Publicação</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header / Hero -->
+    <header class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">Atenção Primária à Saúde — Osasco/SP</span>
+            <h1>Governança Digital da Informação na APS</h1>
+            <p>Fortalecendo o Território, a Equidade e a Tomada de Decisão na Gestão Pública de Saúde.</p>
+            
+            <div class="hero-authors">
+                <div class="author-chip">Érica Lima da Silva</div>
+                <div class="author-chip">Hermes Sousa Novais</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <div class="container">
+
+        <!-- Sobre & Apresentação -->
+        <section id="sobre" class="card" style="margin-bottom: 2rem;">
+            <h2>Sobre o Modelo Alcance</h2>
+            <p>O <strong>Modelo Alcance</strong> foi concebido como uma estratégia de transformação digital da gestão na Atenção Primária à Saúde (APS) de Osasco. Desenvolvido de forma incremental para atender às necessidades reais do município, a plataforma integra bases de dados demográficas, sociais e assistenciais para viabilizar o georreferenciamento, a territorialização e a adscrição populacional com base na equidade social.</p>
+        </section>
+
+        <!-- Indicadores de Impacto -->
+        <section id="resultados" class="card" style="margin-bottom: 2rem;">
+            <h2>Resultados e Impacto (2022–2025)</h2>
+            <p style="color: var(--text-muted);">Impactos diretos alcançados na qualificação da informação e ampliação do acesso à saúde pública:</p>
+            
+            <div class="grid-stats">
+                <div class="stat-box">
+                    <div class="stat-number">180</div>
+                    <div class="stat-label">Equipes de APS (expansão de 74 para 180 equipes)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">-83%</div>
+                    <div class="stat-label">Redução expressiva nas reprovações de fichas no SISAB</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">2.19M+</div>
+                    <div class="stat-label">Registros assistenciais aprovados</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Áreas de abrangência formalizadas e mapeadas</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pilares e Metodologia -->
+        <div id="pilares" class="grid-2">
+            <div class="card">
+                <h2>Pilares Metodológicos</h2>
+                <ul class="feature-list">
+                    <li><strong>Interoperabilidade Avançada:</strong> Integração de dados de setores censitários do IBGE e do IVS/UDH do IPEA.</li>
+                    <li><strong>Alocação Equitativa:</strong> Priorização da força de trabalho nas áreas de maior vulnerabilidade social.</li>
+                    <li><strong>Qualificação de Registros:</strong> Detecção automatizada de inconsistências cadastrais e assistenciais.</li>
+                    <li><strong>Acesso a Microdados:</strong> Dados de mortalidade infantil, analfabetismo e gestação no território.</li>
+                </ul>
+            </div>
+
+            <div id="publicacao" class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <h2>Reconhecimento Institucional</h2>
+                    <p>Experiência cadastrada e publicada no Acervo Digital do Conselho de Secretários Municipais de Saúde do Estado de São Paulo (COSEMS/SP).</p>
+                    
+                    <div class="tag-cloud">
+                        <span class="tag">#SaudeDigital</span>
+                        <span class="tag">#SUS</span>
+                        <span class="tag">#Osasco</span>
+                        <span class="tag">#Territorializacao</span>
+                        <span class="tag">#InovacaoPublica</span>
+                    </div>
+                </div>
+
+                <div>
+                    <a href="https://www.cosemssp.org.br/noticias/acervo-digital/governanca-digital-da-informacao-na-aps-fortalece-territorio-equidade-e-tomada-de-decisao-em-osasco/" target="_blank" class="btn-primary">Ver Artigo Oficial no COSEMS/SP →</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>Sistema Alcance</strong> — Secretaria Municipal de Saúde de Osasco<br>Desenvolvido para fortalecer a gestão pública, o território e o controle social no SUS.</p>
+    </footer>
+
+</body>
+</html>
