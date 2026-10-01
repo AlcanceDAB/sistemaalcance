@@ -86,11 +86,12 @@ async function pesquisarCNES(termo) {
     const apenasNumeros = termo.replace(/\D/g, '');
     const isCpf = apenasNumeros.length === 11;
 
-    // URL usando HTTPS diretamente
+    // URL original HTTPS do DATASUS
     const urlBaseDatasus = isCpf 
         ? `https://cnes.datasus.gov.br/services/profissionais?cpf=${apenasNumeros}`
         : `https://cnes.datasus.gov.br/services/profissionais?nome=${encodeURIComponent(termo)}`;
 
+    // Chamada apontando para o seu Worker no Cloudflare
     const workerProxyUrl = `https://sistemaalcance.hermes-ss-osasco.workers.dev/?url=${encodeURIComponent(urlBaseDatasus)}`;
 
     try {
