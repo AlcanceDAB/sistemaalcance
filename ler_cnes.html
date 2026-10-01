@@ -86,12 +86,11 @@ async function pesquisarCNES(termo) {
     const apenasNumeros = termo.replace(/\D/g, '');
     const isCpf = apenasNumeros.length === 11;
 
-    // URL original do DATASUS
+    // URL usando HTTPS diretamente
     const urlBaseDatasus = isCpf 
-        ? `http://cnes.datasus.gov.br/services/profissionais?cpf=${apenasNumeros}`
-        : `http://cnes.datasus.gov.br/services/profissionais?nome=${encodeURIComponent(termo)}`;
+        ? `https://cnes.datasus.gov.br/services/profissionais?cpf=${apenasNumeros}`
+        : `https://cnes.datasus.gov.br/services/profissionais?nome=${encodeURIComponent(termo)}`;
 
-    // Endereço do seu Cloudflare Worker como Proxy
     const workerProxyUrl = `https://sistemaalcance.hermes-ss-osasco.workers.dev/?url=${encodeURIComponent(urlBaseDatasus)}`;
 
     try {
@@ -116,7 +115,7 @@ async function pesquisarCNES(termo) {
 
             if (idProf) {
                 try {
-                    const urlVinculos = `http://cnes.datasus.gov.br/services/estabelecimentos-profissionais/${idProf}`;
+                    const urlVinculos = `https://cnes.datasus.gov.br/services/estabelecimentos-profissionais/${idProf}`;
                     const workerVinculosUrl = `https://sistemaalcance.hermes-ss-osasco.workers.dev/?url=${encodeURIComponent(urlVinculos)}`;
                     const reqVinc = await fetch(workerVinculosUrl);
                     
