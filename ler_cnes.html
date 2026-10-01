@@ -72,28 +72,6 @@ function executarBuscaManual() {
     }
 }
 
-// Função para tentar fazer o fetch alternando proxies caso o principal bloqueie
-async function fetchComProxyFallback(urlTarget) {
-    const proxies = [
-        target => `https://api.allorigins.win/raw?url=${encodeURIComponent(target)}`,
-        target => `https://thingproxy.freeboard.io/fetch/${target}`,
-        target => `https://corsproxy.io/?${encodeURIComponent(target)}`
-    ];
-
-    for (const proxyGen of proxies) {
-        try {
-            const res = await fetch(proxyGen(urlTarget));
-            if (res.ok) {
-                const text = await res.text();
-                return JSON.parse(text);
-            }
-        } catch (e) {
-            console.warn("Proxy falhou, tentando o próximo...", e);
-        }
-    }
-    throw new Error("Não foi possível conectar aos servidores do DATASUS através das rotas disponíveis.");
-}
-
 async function pesquisarCNES(termo) {
     const areaResultado = document.getElementById('areaResultado');
     const corpoTabela = document.getElementById('corpoTabela');
@@ -108,12 +86,19 @@ async function pesquisarCNES(termo) {
     const apenasNumeros = termo.replace(/\D/g, '');
     const isCpf = apenasNumeros.length === 11;
 
+    // URL original do DATASUS
     const urlBaseDatasus = isCpf 
         ? `http://cnes.datasus.gov.br/services/profissionais?cpf=${apenasNumeros}`
         : `http://cnes.datasus.gov.br/services/profissionais?nome=${encodeURIComponent(termo)}`;
 
+    // Endereço do seu Cloudflare Worker como Proxy
+    const workerProxyUrl = `https://sistemaalcance.hermes-ss-osasco.workers.dev/?url=${encodeURIComponent(urlBaseDatasus)}`;
+
     try {
-        const profissionais = await fetchComProxyFallback(urlBaseDatasus);
+        const response = await fetch(workerProxyUrl);
+        if (!response.ok) throw new Error("Falha na comunicação com o serviço.");
+
+        const profissionais = await response.json();
 
         if (!profissionais || !Array.isArray(profissionais) || profissionais.length === 0) {
             status.innerText = "Nenhum profissional encontrado.";
@@ -132,17 +117,21 @@ async function pesquisarCNES(termo) {
             if (idProf) {
                 try {
                     const urlVinculos = `http://cnes.datasus.gov.br/services/estabelecimentos-profissionais/${idProf}`;
-                    const dadosVinculos = await fetchComProxyFallback(urlVinculos);
+                    const workerVinculosUrl = `https://sistemaalcance.hermes-ss-osasco.workers.dev/?url=${encodeURIComponent(urlVinculos)}`;
+                    const reqVinc = await fetch(workerVinculosUrl);
                     
-                    if (Array.isArray(dadosVinculos) && dadosVinculos.length > 0) {
-                        vinculos = dadosVinculos.map(v => ({
-                            unidade: v.noFantasia || v.noEmpresa || 'Unidade Cadastrada',
-                            equipe: v.dsEquipe || v.noEquipe || 'Sem equipe vinculada',
-                            ch: ((v.qtCargaHorariaAmbulatorial || 0) + (v.qtCargaHorariaHospitalar || 0)) + 'h'
-                        }));
+                    if (reqVinc.ok) {
+                        const dadosVinculos = await reqVinc.json();
+                        if (Array.isArray(dadosVinculos) && dadosVinculos.length > 0) {
+                            vinculos = dadosVinculos.map(v => ({
+                                unidade: v.noFantasia || v.noEmpresa || 'Unidade Cadastrada',
+                                equipe: v.dsEquipe || v.noEquipe || 'Sem equipe vinculada',
+                                ch: ((v.qtCargaHorariaAmbulatorial || 0) + (v.qtCargaHorariaHospitalar || 0)) + 'h'
+                            }));
+                        }
                     }
                 } catch (e) {
-                    console.warn("Falha ao carregar detalhes de vínculos:", e);
+                    console.warn("Falha ao carregar vínculos:", e);
                 }
             }
 
@@ -167,7 +156,7 @@ async function pesquisarCNES(termo) {
         areaResultado.classList.remove('escondido');
 
     } catch (error) {
-        status.innerText = "Erro na consulta: " + error.message;
+        status.innerText = "Erro ao consultar: " + error.message;
         status.className = "erro";
         areaResultado.classList.add('escondido');
     } finally {
