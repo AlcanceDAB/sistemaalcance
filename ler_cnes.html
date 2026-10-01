@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta Profissional - CNES</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 30px; max-width: 1100px; margin: auto; background-color: #f4f6f9; }
+        .container { background: #fff; padding: 25px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h2 { color: #0c326f; margin-top: 0; font-size: 20px; }
+        .busca { display: flex; gap: 10px; margin-bottom: 20px; }
+        input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+        button { padding: 10px 20px; background: #1e5ba8; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #16437e; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 13px; }
+        th { background-color: #f8f9fa; color: #333; font-weight: bold; }
+        .tag-ch { background: #e2e8f0; padding: 3px 8px; border-radius: 4px; font-weight: bold; display: inline-block; }
+        
+        .escondido { display: none; }
+        .loading { color: #0056b3; font-weight: bold; margin-bottom: 10px; }
+        .erro { color: #d9534f; font-weight: bold; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>CONSULTA PROFISSIONAL - VÍNCULOS E CARGA HORÁRIA (CNES)</h2>
+
+    <div class="busca">
+        <input type="text" id="campoPesquisa" placeholder="Digite o CPF ou Nome do profissional...">
+        <button id="btnPesquisar" onclick="executarBuscaManual()">Pesquisar</button>
+    </div>
+
+    <div id="status"></div>
+
+    <div id="areaResultado" class="escondido">
+        <table>
+            <thead>
+                <tr>
+                    <th>CNS</th>
+                    <th>NOME PROFISSIONAL</th>
+                    <th>ESTABELECIMENTO / UNIDADE</th>
+                    <th>EQUIPE</th>
+                    <th>CARGA HORÁRIA</th>
+                </tr>
+            </thead>
+            <tbody id="corpoTabela"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+// Resgata variáveis da URL ao carregar (?q=... ou ?cpf=...)
+window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const termoUrl = urlParams.get('q') || urlParams.get('cpf') || urlParams.get('nome');
+
+    if (termoUrl) {
+        document.getElementById('campoPesquisa').value = termoUrl;
+        pesquisarCNES(termoUrl);
+    }
+});
+
+function executarBuscaManual() {
+    const termo = document.getElementById('campoPesquisa').value.trim();
+    if (termo) {
+        // Atualiza a URL mantendo o parâmetro ?q=
+        const novaUrl = window.location.pathname + '?q=' + encodeURIComponent(termo);
+        window.history.pushState({ path: novaUrl }, '', novaUrl);
+        pesquisarCNES(termo);
+    }
+}
+
+async function pesquisarCNES(termo) {
+    const areaResultado = document.getElementById('areaResultado');
+    const corpoTabela = document.getElementById('corpoTabela');
+    const status = document.getElementById('status');
+    const btn = document.getElementById('btnPesquisar');
+
+    corpoTabela.innerHTML = "";
+    status.innerText = "Consultando DATASUS...";
+    status.className = "loading";
+    btn.disabled = true;
+
+    const apenasNumeros = termo.replace(/\D/g, '');
+    const isCpf = apenasNumeros.length === 11;
+
+    // Endpoint original do DATASUS
+    const urlDatasus = isCpf 
+        ? `https://cnes.datasus.gov.br/services/profissionais?cpf=${apenasNumeros}`
+        : `https://cnes.datasus.gov.br/services/profissionais?nome=${encodeURIComponent(termo)}`;
+
+    // Passa pelo proxy CORS para permitir a leitura no GitHub Pages / Git
+    const urlProxy = "https://corsproxy.io/?" + encodeURIComponent(urlDatasus);
+
+    try {
+        const resp1 = await fetch(urlProxy);
+        if (!resp1.ok) throw new Error("Erro de comunicação com o serviço.");
+
+        const profissionais = await resp1.json();
+
+        if (!profissionais || profissionais.length === 0) {
+            status.innerText = "Nenhum profissional encontrado.";
+            status.className = "erro";
+            areaResultado.classList.add('escondido');
+            return;
+        }
+
+        for (const prof of profissionais) {
+            const idProf = prof.id || prof.idPessoa || prof.codigo;
+            const cns = prof.cns || prof.nuCns || '-';
+            const nome = prof.nome || prof.noProfissional || termo;
+
+            let vinculos = [];
+
+            if (idProf) {
+                try {
+                    const urlVinculos = `https://cnes.datasus.gov.br/services/estabelecimentos-profissionais/${idProf}`;
+                    const respVinculos = await fetch("https://corsproxy.io/?" + encodeURIComponent(urlVinculos));
+                    
+                    if (respVinculos.ok) {
+                        const dadosVinculos = await respVinculos.json();
+                        if (Array.isArray(dadosVinculos) && dadosVinculos.length > 0) {
+                            vinculos = dadosVinculos.map(v => ({
+                                unidade: v.noFantasia || v.noEmpresa || 'Unidade Cadastrada',
+                                equipe: v.dsEquipe || v.noEquipe || 'Sem equipe vinculada',
+                                ch: ((v.qtCargaHorariaAmbulatorial || 0) + (v.qtCargaHorariaHospitalar || 0)) + 'h Amb.'
+                            }));
+                        }
+                    }
+                } catch (e) {
+                    console.warn("Falha ao carregar vínculos:", e);
+                }
+            }
+
+            if (vinculos.length === 0) {
+                vinculos.push({ unidade: 'Sem vínculo ativo cadastrado', equipe: '-', ch: '-' });
+            }
+
+            vinculos.forEach(vinc => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${cns}</td>
+                    <td><strong>${nome}</strong></td>
+                    <td>${vinc.unidade}</td>
+                    <td>${vinc.equipe}</td>
+                    <td><span class="tag-ch">${vinc.ch}</span></td>
+                `;
+                corpoTabela.appendChild(tr);
+            });
+        }
+
+        status.innerText = "";
+        areaResultado.classList.remove('escondido');
+
+    } catch (error) {
+        status.innerText = "Erro na consulta: " + error.message;
+        status.className = "erro";
+        areaResultado.classList.add('escondido');
+    } finally {
+        btn.disabled = false;
+    }
+}
+</script>
+
+</body>
+</html>
