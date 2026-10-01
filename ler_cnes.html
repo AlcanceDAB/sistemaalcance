@@ -53,7 +53,6 @@
 </div>
 
 <script>
-// Resgata variáveis da URL ao carregar (?q=... ou ?cpf=...)
 window.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const termoUrl = urlParams.get('q') || urlParams.get('cpf') || urlParams.get('nome');
@@ -67,11 +66,32 @@ window.addEventListener('DOMContentLoaded', () => {
 function executarBuscaManual() {
     const termo = document.getElementById('campoPesquisa').value.trim();
     if (termo) {
-        // Atualiza a URL mantendo o parâmetro ?q=
         const novaUrl = window.location.pathname + '?q=' + encodeURIComponent(termo);
         window.history.pushState({ path: novaUrl }, '', novaUrl);
         pesquisarCNES(termo);
     }
+}
+
+// Função para tentar fazer o fetch alternando proxies caso o principal bloqueie
+async function fetchComProxyFallback(urlTarget) {
+    const proxies = [
+        target => `https://api.allorigins.win/raw?url=${encodeURIComponent(target)}`,
+        target => `https://thingproxy.freeboard.io/fetch/${target}`,
+        target => `https://corsproxy.io/?${encodeURIComponent(target)}`
+    ];
+
+    for (const proxyGen of proxies) {
+        try {
+            const res = await fetch(proxyGen(urlTarget));
+            if (res.ok) {
+                const text = await res.text();
+                return JSON.parse(text);
+            }
+        } catch (e) {
+            console.warn("Proxy falhou, tentando o próximo...", e);
+        }
+    }
+    throw new Error("Não foi possível conectar aos servidores do DATASUS através das rotas disponíveis.");
 }
 
 async function pesquisarCNES(termo) {
@@ -88,21 +108,14 @@ async function pesquisarCNES(termo) {
     const apenasNumeros = termo.replace(/\D/g, '');
     const isCpf = apenasNumeros.length === 11;
 
-    // Endpoint original do DATASUS
-    const urlDatasus = isCpf 
-        ? `https://cnes.datasus.gov.br/services/profissionais?cpf=${apenasNumeros}`
-        : `https://cnes.datasus.gov.br/services/profissionais?nome=${encodeURIComponent(termo)}`;
-
-    // Passa pelo proxy CORS para permitir a leitura no GitHub Pages / Git
-    const urlProxy = "https://corsproxy.io/?" + encodeURIComponent(urlDatasus);
+    const urlBaseDatasus = isCpf 
+        ? `http://cnes.datasus.gov.br/services/profissionais?cpf=${apenasNumeros}`
+        : `http://cnes.datasus.gov.br/services/profissionais?nome=${encodeURIComponent(termo)}`;
 
     try {
-        const resp1 = await fetch(urlProxy);
-        if (!resp1.ok) throw new Error("Erro de comunicação com o serviço.");
+        const profissionais = await fetchComProxyFallback(urlBaseDatasus);
 
-        const profissionais = await resp1.json();
-
-        if (!profissionais || profissionais.length === 0) {
+        if (!profissionais || !Array.isArray(profissionais) || profissionais.length === 0) {
             status.innerText = "Nenhum profissional encontrado.";
             status.className = "erro";
             areaResultado.classList.add('escondido');
@@ -118,21 +131,18 @@ async function pesquisarCNES(termo) {
 
             if (idProf) {
                 try {
-                    const urlVinculos = `https://cnes.datasus.gov.br/services/estabelecimentos-profissionais/${idProf}`;
-                    const respVinculos = await fetch("https://corsproxy.io/?" + encodeURIComponent(urlVinculos));
+                    const urlVinculos = `http://cnes.datasus.gov.br/services/estabelecimentos-profissionais/${idProf}`;
+                    const dadosVinculos = await fetchComProxyFallback(urlVinculos);
                     
-                    if (respVinculos.ok) {
-                        const dadosVinculos = await respVinculos.json();
-                        if (Array.isArray(dadosVinculos) && dadosVinculos.length > 0) {
-                            vinculos = dadosVinculos.map(v => ({
-                                unidade: v.noFantasia || v.noEmpresa || 'Unidade Cadastrada',
-                                equipe: v.dsEquipe || v.noEquipe || 'Sem equipe vinculada',
-                                ch: ((v.qtCargaHorariaAmbulatorial || 0) + (v.qtCargaHorariaHospitalar || 0)) + 'h Amb.'
-                            }));
-                        }
+                    if (Array.isArray(dadosVinculos) && dadosVinculos.length > 0) {
+                        vinculos = dadosVinculos.map(v => ({
+                            unidade: v.noFantasia || v.noEmpresa || 'Unidade Cadastrada',
+                            equipe: v.dsEquipe || v.noEquipe || 'Sem equipe vinculada',
+                            ch: ((v.qtCargaHorariaAmbulatorial || 0) + (v.qtCargaHorariaHospitalar || 0)) + 'h'
+                        }));
                     }
                 } catch (e) {
-                    console.warn("Falha ao carregar vínculos:", e);
+                    console.warn("Falha ao carregar detalhes de vínculos:", e);
                 }
             }
 
