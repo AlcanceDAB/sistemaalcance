@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema Alcance • Organização de Escalas de Trabalho na APS (C1 a C7)</title>
+  <style>
+    :root {
+      --bg-primary: #070d18;
+      --bg-secondary: #0d172a;
+      --bg-card: rgba(15, 25, 46, 0.88);
+      --bg-card-hover: rgba(21, 35, 64, 0.96);
+      --border-subtle: rgba(56, 189, 248, 0.18);
+      --border-highlight: rgba(16, 185, 129, 0.45);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-accent: #38bdf8;
+      --accent-green: #10b981;
+      --accent-blue: #0284c7;
+      --gradient-brand: linear-gradient(135deg, #10b981 0%, #0ea5e9 55%, #2563eb 100%);
+      --gradient-badge: linear-gradient(90deg, rgba(16, 185, 129, 0.16), rgba(14, 165, 233, 0.16));
+      --shadow-deep: 0 20px 45px -12px rgba(0, 0, 0, 0.72), 0 0 0 1px rgba(255, 255, 255, 0.04);
+      --shadow-card: 0 12px 28px -8px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", Roboto, Ubuntu, Cantarell, -apple-system, sans-serif;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(16, 185, 129, 0.14), transparent 36%),
+        radial-gradient(circle at 88% 14%, rgba(14, 165, 233, 0.16), transparent 40%),
+        radial-gradient(circle at 50% 95%, rgba(37, 99, 235, 0.12), transparent 45%),
+        var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding-bottom: 64px;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px 20px;
+    }
+
+    /* Topbar */
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 16px 22px;
+      box-shadow: var(--shadow-deep);
+      margin-bottom: 28px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--gradient-brand);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #ffffff;
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+    }
+
+    .brand-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
+
+    .brand-sub {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .nav-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .nav-pill {
+      text-decoration: none;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.2s ease;
+    }
+
+    .nav-pill:hover {
+      background: var(--gradient-brand);
+      border-color: transparent;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(145deg, rgba(16, 185, 129, 0.14) 0%, rgba(13, 23, 42, 0.95) 45%, rgba(14, 165, 233, 0.14) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 34px 30px;
+      box-shadow: var(--shadow-deep);
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-brand);
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--gradient-badge);
+      border: 1px solid var(--border-highlight);
+      color: #6ee7b7;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.65rem, 3.2vw, 2.45rem);
+      line-height: 1.2;
+      font-weight: 800;
+      margin-bottom: 12px;
+      background: linear-gradient(90deg, #ffffff 0%, #a7f3d0 45%, #7dd3fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+      margin: 18px 0 22px;
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      background: rgba(7, 13, 24, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.9rem;
+    }
+
+    .hero-meta strong {
+      color: #6ee7b7;
+    }
+
+    .hero p {
+      color: #cbd5e1;
+      max-width: 900px;
+      margin-bottom: 12px;
+    }
+
+    /* Sections */
+    .section {
+      margin-top: 34px;
+    }
+
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::before {
+      content: "";
+      width: 6px;
+      height: 24px;
+      border-radius: 4px;
+      background: var(--gradient-brand);
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    /* Cards Grid */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      background: var(--bg-card-hover);
+      border-color: var(--border-highlight);
+    }
+
+    .card h3 {
+      font-size: 1.08rem;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .card p, .card li {
+      font-size: 0.92rem;
+      color: #cbd5e1;
+    }
+
+    .card ul {
+      padding-left: 18px;
+      margin-top: 8px;
+    }
+
+    .card li {
+      margin-bottom: 6px;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.14);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      margin-bottom: 10px;
+    }
+
+    /* Interactive Workload Switcher */
+    .switcher-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .btn-carga {
+      cursor: pointer;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-secondary);
+      color: var(--text-main);
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-carga.active, .btn-carga:hover {
+      background: var(--gradient-brand);
+      border-color: transparent;
+      color: #ffffff;
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.28);
+    }
+
+    .workload-panel {
+      display: none;
+    }
+
+    .workload-panel.active {
+      display: block;
+    }
+
+    /* Accordion / Details */
+    details.cbo-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+
+    details.cbo-box[open] {
+      border-color: var(--border-highlight);
+    }
+
+    details.cbo-box summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 22px;
+      font-weight: 700;
+      font-size: 1.02rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    details.cbo-box summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.cbo-box summary::after {
+      content: "+";
+      font-size: 1.3rem;
+      color: #6ee7b7;
+      font-weight: 800;
+    }
+
+    details.cbo-box[open] summary::after {
+      content: "−";
+    }
+
+    .cbo-content {
+      padding: 0 22px 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 16px;
+    }
+
+    .cbo-content ul {
+      padding-left: 18px;
+      margin: 8px 0 12px;
+    }
+
+    .cbo-content li {
+      margin-bottom: 6px;
+      color: #cbd5e1;
+      font-size: 0.93rem;
+    }
+
+    .callout {
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      background: rgba(16, 185, 129, 0.09);
+      border-left: 4px solid var(--accent-green);
+      font-size: 0.9rem;
+      color: #e2e8f0;
+    }
+
+    /* Filter & Matrix Table */
+    .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .search-input, .select-nota {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .search-input {
+      flex: 1 1 260px;
+    }
+
+    .search-input:focus, .select-nota:focus {
+      border-color: var(--accent-green);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    thead {
+      background: linear-gradient(90deg, rgba(16, 185, 129, 0.22), rgba(2, 132, 199, 0.22));
+    }
+
+    th, td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      vertical-align: top;
+    }
+
+    th {
+      font-weight: 700;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    td {
+      color: #cbd5e1;
+    }
+
+    tbody tr:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .nota-pill {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: rgba(16, 185, 129, 0.16);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      white-space: nowrap;
+    }
+
+    /* Checklist Gestores */
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      background: rgba(7, 13, 24, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+
+    .checklist-item input[type="checkbox"] {
+      margin-top: 4px;
+      width: 18px;
+      height: 18px;
+      accent-color: #10b981;
+      cursor: pointer;
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 12px 0 18px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--gradient-brand);
+      transition: width 0.25s ease;
+    }
+
+    /* Sources */
+    .sources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+    }
+
+    .source-chip {
+      background: rgba(13, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+
+    .source-chip strong {
+      display: block;
+      color: #7dd3fc;
+      margin-bottom: 3px;
+    }
+
+    .footer-note {
+      margin-top: 32px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        color: #111;
+      }
+      .topbar, .switcher-bar, .controls-row, .btn-carga {
+        display: none;
+      }
+      .card, details.cbo-box, .table-wrap, .hero {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        background: #fff;
+        color: #111;
+      }
+      .workload-panel {
+        display: block !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Barra Superior -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-icon">SA</div>
+        <div>
+          <div class="brand-title">SISTEMA ALCANCE • APS</div>
+          <div class="brand-sub">Territorialização • Indicadores &amp; Qualificação</div>
+        </div>
+      </div>
+      <nav class="nav-pills" aria-label="Navegação do documento">
+        <a class="nav-pill" href="#fundamentos">Fundamentos</a>
+        <a class="nav-pill" href="#cbo">Por CBO</a>
+        <a class="nav-pill" href="#cargas">Escalas 40h / 30h / 20h</a>
+        <a class="nav-pill" href="#matriz">Matriz Operacional</a>
+        <a class="nav-pill" href="#validacao">Validação</a>
+      </nav>
+    </header>
+
+    <!-- Cabeçalho Principal -->
+    <section class="hero">
+      <div class="kicker">Documento Norteador • Notas Metodológicas C1 a C7 (MS / 2024)</div>
+      <h1>Organização de Escalas de Trabalho na APS</h1>
+      <div class="hero-meta">
+        <div><strong>PARA:</strong> Todas as Equipes de Saúde da Família, Saúde Bucal e Multiprofissionais</div>
+        <div><strong>ASSUNTO:</strong> Reorganização das Escalas de Trabalho e Processos para o Monitoramento de Indicadores (Notas C1 a C7)</div>
+      </div>
+      <p>
+        A Atenção Primária à Saúde (APS) vive um momento de transição no seu modelo de financiamento e avaliação. O Ministério da Saúde, através das novas Notas Metodológicas (C1 a C7), estabeleceu critérios muito precisos para medir o nosso desempenho.
+      </p>
+      <p>
+        Este documento norteador foi criado para traduzir essas regras técnicas em ações práticas do dia a dia. O objetivo não é aumentar a carga de trabalho, mas sim organizar a nossa agenda para que o trabalho que já realizamos seja contabilizado corretamente e gere os recursos necessários para a manutenção da nossa rede.
+      </p>
+    </section>
+
+    <!-- Por que este documento é necessário + 4 Eixos -->
+    <section id="fundamentos" class="section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Por que este documento é necessário?</h2>
+          <p class="section-desc">Mudanças de foco, equilíbrio da agenda, registro qualificado e corresponsabilidade da equipe.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <span class="tag">1. Tempestividade</span>
+          <h3>De "Quantidade" para "Tempestividade"</h3>
+          <p>Antigamente, a produção era medida por volume. Hoje, os indicadores medem se o atendimento aconteceu no momento certo.</p>
+          <ul>
+            <li><strong>Exemplo:</strong> Não basta atender a gestante; a primeira consulta precisa ser até a 12ª semana. Não basta visitar o recém-nascido; a visita precisa ser na primeira semana de vida.</li>
+            <li>Este documento ajuda a ajustar as agendas para garantir essas "janelas de oportunidade".</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <span class="tag">2. Nota C1 - Mais Acesso</span>
+          <h3>O Equilíbrio da Agenda</h3>
+          <p>Um dos maiores desafios é equilibrar a porta aberta com o cuidado programado. O indicador Mais Acesso nos cobra que a equipe não seja apenas um "pronto-atendimento", mas que mantenha o vínculo com seus usuários crônicos e prioritários.</p>
+          <p style="margin-top:8px;">A orientação de escala proposta busca garantir tempos protegidos para o Cuidado Programado (gestantes, hipertensos, diabéticos, crianças), evitando que a demanda espontânea engula toda a capacidade de atendimento da equipe.</p>
+        </article>
+
+        <article class="card">
+          <span class="tag">3. Qualidade do Dado</span>
+          <h3>A Importância do Registro Qualificado</h3>
+          <p>Muitas vezes, a equipe trabalha muito, mas o indicador permanece baixo. Isso ocorre frequentemente por falhas no registro:</p>
+          <ul>
+            <li>Peso e Altura não registrados no mesmo dia (simultâneos).</li>
+            <li>CIDs ou CIAPs não informados corretamente.</li>
+            <li>Procedimentos realizados por profissionais não habilitados no sistema para aquele fim.</li>
+          </ul>
+          <p>Este guia esclarece quem deve registrar o que, assegurando que o esforço clínico vire dado epidemiológico e financeiro.</p>
+        </article>
+
+        <article class="card">
+          <span class="tag">4. Corresponsabilidade</span>
+          <h3>O Papel de Cada Um na Engrenagem</h3>
+          <p>Os indicadores são interdependentes. O médico precisa do técnico (para a PA e Antropometria), que precisa do ACS (para trazer o paciente faltoso), que precisa da recepção (para o agendamento correto).</p>
+          <p style="margin-top:8px;">Este documento serve para alinhar o entendimento de todos sobre a importância da sua função específica no resultado coletivo da unidade.</p>
+        </article>
+      </div>
+
+      <div class="card" style="margin-top:18px;">
+        <span class="tag">Diretriz Geral • Nota C1</span>
+        <h3>O Equilíbrio do Acesso</h3>
+        <p>A construção das escalas deve se basear no indicador "Mais Acesso" (Nota C1), que monitora a proporção de atendimentos por demanda programada. As agendas não devem ser totalmente dedicadas à demanda espontânea; é necessário reservar horários para o cuidado continuado de ciclos de vida e condições crônicas.</p>
+      </div>
+    </section>
+
+    <!-- Orientações Específicas por Classe de CBO -->
+    <section id="cbo" class="section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Orientações Específicas por Classe de CBO</h2>
+          <p class="section-desc">Clique em cada categoria profissional para expandir os procedimentos obrigatórios e regras de agenda.</p>
+        </div>
+      </div>
+
+      <details class="cbo-box" open>
+        <summary>A. Médicos (CBOs 2251, 2252, 2253, 2231) e Enfermeiros (CBO 2235)</summary>
+        <div class="cbo-content">
+          <p>Estes profissionais são responsáveis pelas consultas clínicas e de acompanhamento.</p>
+          <strong>Procedimentos Obrigatórios na Escala:</strong>
+          <ul>
+            <li><strong>Gestantes (Pré-natal):</strong> Garantir agenda para no mínimo 07 consultas durante a gestação, sendo a primeira até a 12ª semana.</li>
+            <li><strong>Crianças (Puericultura):</strong> Garantir agenda para a 1ª consulta até o 30º dia de vida e um total de 09 consultas até os 2 anos.</li>
+            <li><strong>Hipertensos e Diabéticos:</strong> Garantir agenda para no mínimo 01 consulta a cada 6 meses (semestral).</li>
+            <li><strong>Idosos:</strong> Garantir agenda para no mínimo 01 consulta anual.</li>
+            <li><strong>Saúde da Mulher:</strong> Enfermeiros devem ter tempo dedicado à coleta de citopatológico e consultas de saúde sexual e reprodutiva.</li>
+          </ul>
+          <div class="callout">
+            <strong>Orientação de Gestão da Agenda:</strong> A escala deve conter blocos fixos para estes grupos prioritários, assegurando a longitudinalidade exigida nos indicadores de desempenho.
+          </div>
+        </div>
+      </details>
+
+      <details class="cbo-box">
+        <summary>B. Técnicos e Auxiliares de Enfermagem (CBO 3222)</summary>
+        <div class="cbo-content">
+          <p>A escala deve focar no suporte aos procedimentos técnicos e vacinação.</p>
+          <strong>Procedimentos Obrigatórios na Escala:</strong>
+          <ul>
+            <li><strong>Aferição de Pressão Arterial (PA):</strong> Obrigatória semestralmente para hipertensos, diabéticos e 7 vezes na gestação.</li>
+            <li><strong>Antropometria (Peso e Altura):</strong> O registro deve ser simultâneo (mesmo dia). Obrigatório anualmente para idosos, diabéticos, hipertensos; 7 vezes na gestação e 9 vezes na criança até 2 anos.</li>
+            <li><strong>Vacinação:</strong> Aplicação e registro de vacinas para crianças (esquema básico), gestantes (dTpa a partir da 20ª semana), idosos (Influenza) e meninas de 9–14 anos (HPV).</li>
+          </ul>
+          <div class="callout">
+            <strong>Orientação de Gestão da Agenda:</strong> A escala deve cobrir todo o horário de funcionamento para garantir a pré-consulta (PA e Antropometria) e o funcionamento ininterrupto da sala de vacina.
+          </div>
+        </div>
+      </details>
+
+      <details class="cbo-box">
+        <summary>C. Agentes Comunitários de Saúde (ACS) e Técnicos (CBO 5151-05, 3222-55)</summary>
+        <div class="cbo-content">
+          <p>A escala deve priorizar a Visita Domiciliar (VD) programada.</p>
+          <strong>Procedimentos Obrigatórios na Escala:</strong>
+          <ul>
+            <li><strong>Crianças:</strong> 1ª VD até o 30º dia de vida e a 2ª até o 6º mês.</li>
+            <li><strong>Gestantes:</strong> Mínimo de 03 VDs durante a gestação e 01 VD no puerpério.</li>
+            <li><strong>Crônicos (Hipertensão/Diabetes):</strong> Mínimo de 02 VDs ao ano, com intervalo mínimo de 30 dias entre elas.</li>
+            <li><strong>Idosos:</strong> Mínimo de 02 VDs ao ano, com intervalo mínimo de 30 dias entre elas.</li>
+          </ul>
+          <div class="callout">
+            <strong>Orientação de Gestão da Agenda:</strong> A escala deve alocar a maior parte da carga horária para o território, com rotas planejadas especificamente para cumprir a periodicidade dos grupos acima.
+          </div>
+        </div>
+      </details>
+
+      <details class="cbo-box">
+        <summary>D. Cirurgiões-Dentistas (CBO 2232) e Técnicos em Saúde Bucal (CBO 3224)</summary>
+        <div class="cbo-content">
+          <p>Atenção especial ao cuidado da gestante.</p>
+          <strong>Procedimentos Obrigatórios na Escala:</strong>
+          <ul>
+            <li><strong>Gestantes:</strong> Realização de pelo menos 01 consulta/atividade odontológica durante a gestação.</li>
+          </ul>
+          <div class="callout">
+            <strong>Orientação de Gestão da Agenda:</strong> Criar vagas de referência ou horários protegidos para o pré-natal odontológico.
+          </div>
+        </div>
+      </details>
+
+      <details class="cbo-box">
+        <summary>E. Equipe Multiprofissional (Nutricionista, Fisioterapeuta, Farmacêutico, Ed. Física, etc.)</summary>
+        <div class="cbo-content">
+          <strong>Procedimentos Obrigatórios na Escala:</strong>
+          <ul>
+            <li><strong>Pé Diabético:</strong> Fisioterapeutas e Enfermeiros devem realizar a avaliação dos pés em pessoas com diabetes (mínimo 1x ao ano).</li>
+            <li><strong>Suporte ao Cuidado:</strong> Profissionais como Nutricionistas e Farmacêuticos podem realizar consultas e atividades educativas que apoiam o monitoramento de crônicos.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <!-- Execução Operacional por Carga Horária -->
+    <section id="cargas" class="section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Execução Operacional por Carga Horária (40h, 30h e 20h)</h2>
+          <p class="section-desc">Selecione a carga horária para visualizar a distribuição sugerida e os fluxos operacionais.</p>
+        </div>
+      </div>
+
+      <div class="switcher-bar" role="tablist" aria-label="Carga horária semanal">
+        <button class="btn-carga active" data-target="carga-40" role="tab" aria-selected="true">Jornada de 40h Semanais</button>
+        <button class="btn-carga" data-target="carga-30" role="tab" aria-selected="false">Jornada de 30h Semanais</button>
+        <button class="btn-carga" data-target="carga-20" role="tab" aria-selected="false">Jornada de 20h Semanais</button>
+      </div>
+
+      <!-- 40h -->
+      <div id="carga-40" class="workload-panel active">
+        <div class="grid-2">
+          <div class="card">
+            <span class="tag">Médicos (CBO 2251/2231) e Enfermeiros (CBO 2235) • 40h</span>
+            <h3>Padrão eSF • 10 Turnos (5 Dias)</h3>
+            <ul>
+              <li><strong>Demanda Programada (60%):</strong> 6 turnos dedicados a agendamentos de grupos prioritários (ex.: 2 turnos para Hiperdia [C4/C5], 2 turnos para Pré-Natal/Puericultura [C2/C3], 1 turno para Saúde da Mulher/Idoso [C6/C7], 1 turno misto).</li>
+              <li><strong>Demanda Espontânea (20%):</strong> 2 turnos (ou horários intercalados diários) para queixas agudas.</li>
+              <li><strong>Atividades Administrativas/Visitas/Reunião (20%):</strong> 2 turnos (gestão de listas, busca ativa, reunião de equipe).</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="tag">Técnicos de Enfermagem (CBO 3222) • 40h</span>
+            <h3>Pré-consulta e Sala de Vacinas</h3>
+            <ul>
+              <li>Dedicação integral à Pré-consulta e Sala de Vacinas, cobrindo o funcionamento da unidade.</li>
+              <li><strong>Execução:</strong> Realizar triagem de todos os agendados do dia para aferir PA e Antropometria (Peso + Altura simultâneos), garantindo os numeradores de C4, C5 e C6.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="tag">ACS (CBO 5151-05) • Proporção por Jornada</span>
+            <h3>Rota e Território</h3>
+            <ul>
+              <li><strong>Tempo de Território (80%):</strong> Prioridade 1 (Recém-nascidos na 1ª semana e 6º mês; Puerpério), Prioridade 2 (Gestantes: mínimo 3 visitas), Prioridade 3 (Hipertensos, Diabéticos e Idosos: 1 visita a cada semestre = 2/ano com intervalo &gt; 30 dias).</li>
+              <li><strong>Tempo Administrativo (20%):</strong> Registro de dados e reuniões de planejamento, registrando o motivo correto ("Visita Periódica", "Busca Ativa").</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="tag">Cirurgiões-Dentistas (CBO 2232) • 40h</span>
+            <h3>Pré-natal Odontológico (C3)</h3>
+            <ul>
+              <li><strong>Procedimento:</strong> Consulta odontológica programática assim que a gestante iniciar o pré-natal na unidade.</li>
+              <li><strong>Sugestão de Escala (40h):</strong> 2 turnos fixos para gestantes/crianças.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 30h -->
+      <div id="carga-30" class="workload-panel">
+        <div class="grid-2">
+          <div class="card">
+            <span class="tag">Médicos (CBO 2251/2231) e Enfermeiros (CBO 2235) • 30h</span>
+            <h3>Aproximadamente 6 a 7 Turnos</h3>
+            <ul>
+              <li><strong>Estratégia:</strong> Reduzir a segmentação por grupos. Usar "Blocos de Cuidado" mistos.</li>
+              <li><strong>Execução:</strong> Garantir agenda protegida diária para Pré-natal (prioridade máxima devido às 7 consultas exigidas). Agrupar Hipertensos e Diabéticos em turnos específicos para otimizar aferição de PA e Antropometria em fluxo.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="tag">Técnicos de Enfermagem (CBO 3222) • 30h/20h</span>
+            <h3>Fluxo Agendado com Antecedência</h3>
+            <ul>
+              <li>Em equipes com carga horária reduzida, o fluxo deve ser <strong>Agendado</strong>.</li>
+              <li><strong>Execução:</strong> Paciente chega 15 minutos antes da consulta médica/enfermeiro para realizar os procedimentos (evitando pré-consulta "livre" e perda de dados). Focar na vacinação de gestantes (dTpa) e crianças nos horários de pico.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="tag">ACS (CBO 5151-05) • Proporção por Jornada</span>
+            <h3>Rota e Território</h3>
+            <ul>
+              <li><strong>Tempo de Território (80%):</strong> Prioridade 1 (RN 1ª semana/6º mês e Puerpério), Prioridade 2 (Gestantes: mín. 3 visitas), Prioridade 3 (Crônicos e Idosos: 2x/ano, 1 por semestre, intervalo &gt; 30 dias).</li>
+              <li><strong>Tempo Administrativo (20%):</strong> Registro de dados e reuniões ("Visita Periódica", "Busca Ativa").</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="tag">Cirurgiões-Dentistas (CBO 2232) • 30h/20h</span>
+            <h3>Vagas Protegidas para Gestantes</h3>
+            <ul>
+              <li><strong>Sugestão de Escala (20h/30h):</strong> 1 horário por dia reservado para "Encaixe de Gestante" encaminhada pelo médico/enfermeiro, garantindo que ela não saia da unidade sem o agendamento odontológico.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 20h -->
+      <div id="carga-20" class="workload-panel">
+        <div class="grid-2">
+          <div class="card">
+            <span class="tag">Médicos (CBO 2251/2231) e Enfermeiros (CBO 2235) • 20h</span>
+            <h3>Padrão eAP • 4 a 5 Turnos (Alta Densidade)</h3>
+            <ul>
+              <li>Evitar turnos exclusivos de "Demanda Espontânea"; acolher nos intervalos dos agendados.</li>
+              <li><strong>Foco Total nas Metas Críticas:</strong> Priorizar Gestantes (mensal) e Crianças &lt; 1 ano (mensal/bimestral).</li>
+              <li><strong>Crônicos (C4/C5):</strong> Garantir consulta semestral obrigatória; se o paciente estiver estável, intercalar com a Enfermagem.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="tag">Técnicos de Enfermagem (CBO 3222) • 20h/30h</span>
+            <h3>Fluxo Agendado com Antecedência</h3>
+            <ul>
+              <li>Paciente chega 15 minutos antes da consulta para aferição e antropometria, evitando perda de dados.</li>
+              <li>Priorizar vacinação de gestantes (dTpa) e crianças nos horários de pico.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="tag">ACS (CBO 5151-05) • Proporção por Jornada</span>
+            <h3>Rota e Território</h3>
+            <ul>
+              <li><strong>Tempo de Território (80%):</strong> Prioridade 1 (RN e Puerpério), Prioridade 2 (Gestantes), Prioridade 3 (Crônicos e Idosos: 2x/ano com intervalo &gt; 30 dias).</li>
+              <li><strong>Tempo Administrativo (20%):</strong> Registro de dados e reuniões com motivo correto.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <span class="tag">Cirurgiões-Dentistas (CBO 2232) • 20h/30h</span>
+            <h3>Encaixe Diário de Gestante</h3>
+            <ul>
+              <li>1 horário por dia reservado para "Encaixe de Gestante" encaminhada pelo médico/enfermeiro, garantindo agendamento odontológico antes da saída da unidade.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resumo Operacional em Matriz de Procedimentos -->
+    <section id="matriz" class="section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Resumo Operacional em Matriz de Procedimentos</h2>
+          <p class="section-desc">Filtre por palavra-chave ou Nota Metodológica para consulta rápida no dia a dia da unidade.</p>
+        </div>
+      </div>
+
+      <div class="controls-row">
+        <input id="buscaMatriz" class="search-input" type="search" placeholder="Buscar por profissional, procedimento, público ou frequência..." />
+        <select id="filtroNota" class="select-nota" aria-label="Filtrar por Nota">
+          <option value="TODAS">Todas as Notas</option>
+          <option value="C2">Nota C2</option>
+          <option value="C3">Nota C3</option>
+          <option value="C4">Nota C4</option>
+          <option value="C5">Nota C5</option>
+          <option value="C6">Nota C6</option>
+          <option value="C7">Nota C7</option>
+        </select>
+      </div>
+
+      <div class="table-wrap">
+        <table id="tabelaMatriz">
+          <thead>
+            <tr>
+              <th>Quem Faz?</th>
+              <th>Procedimento</th>
+              <th>Quem Recebe?</th>
+              <th>Frequência/Prazo (Trigger)</th>
+              <th>Nota Relacionada</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-notas="C3">
+              <td>Recepção</td>
+              <td>Agendamento Prioritário</td>
+              <td>Gestante (1ª vez)</td>
+              <td>Imediato (Meta &lt; 12 semanas)</td>
+              <td><span class="nota-pill">C3</span></td>
+            </tr>
+            <tr data-notas="C2">
+              <td>Recepção</td>
+              <td>Agendamento Prioritário</td>
+              <td>Recém-Nascido</td>
+              <td>Imediato (Meta &lt; 30 dias)</td>
+              <td><span class="nota-pill">C2</span></td>
+            </tr>
+            <tr data-notas="C2 C3 C4 C5 C6">
+              <td>Téc. Enf.</td>
+              <td>Peso + Altura</td>
+              <td>Todos Prioritários</td>
+              <td>Simultâneo (Mesmo dia)</td>
+              <td><span class="nota-pill">C2, C3, C4, C5, C6</span></td>
+            </tr>
+            <tr data-notas="C3">
+              <td>Téc. Enf.</td>
+              <td>Vacina dTpa</td>
+              <td>Gestante</td>
+              <td>A partir da 20ª semana</td>
+              <td><span class="nota-pill">C3</span></td>
+            </tr>
+            <tr data-notas="C4 C5">
+              <td>Médico/Enf</td>
+              <td>Consulta Clínica</td>
+              <td>Diabético/Hipertenso</td>
+              <td>A cada 6 meses (Semestral)</td>
+              <td><span class="nota-pill">C4, C5</span></td>
+            </tr>
+            <tr data-notas="C4">
+              <td>Médico/Enf</td>
+              <td>Solicitação HbA1c</td>
+              <td>Diabético</td>
+              <td>A cada 12 meses (Anual)</td>
+              <td><span class="nota-pill">C4</span></td>
+            </tr>
+            <tr data-notas="C7">
+              <td>Enfermeiro</td>
+              <td>Citopatológico</td>
+              <td>Mulher 25-64 anos</td>
+              <td>A cada 3 anos</td>
+              <td><span class="nota-pill">C7</span></td>
+            </tr>
+            <tr data-notas="C4 C5 C6">
+              <td>ACS</td>
+              <td>Visita Domiciliar</td>
+              <td>Idoso/Crônico</td>
+              <td>2x/ano (Intervalo &gt; 30 dias)</td>
+              <td><span class="nota-pill">C4, C5, C6</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Resumo para Gestores na Validação das Escalas + Próximos Passos -->
+    <section id="validacao" class="section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Resumo para Gestores na Validação das Escalas &amp; Próximos Passos</h2>
+          <p class="section-desc">Marque os itens verificados na validação da escala da equipe.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Checklist de Validação da Escala</h3>
+        <div class="progress-bar-bg">
+          <div id="progressoChecklist" class="progress-bar-fill"></div>
+        </div>
+        <p id="textoProgresso" style="font-size:0.86rem; color:#6ee7b7; margin-bottom:12px;">0 de 3 itens validados (0%)</p>
+
+        <label class="checklist-item">
+          <input type="checkbox" class="check-gestor" />
+          <div>
+            <strong>1. Consultas Agendadas (Longitudinalidade)</strong> <span class="nota-pill">C1, C2, C3, C4, C5, C6, C7</span>
+            <p style="margin-top:4px; font-size:0.88rem; color:#cbd5e1;">Há tempo hábil alocado para consultas programadas e acompanhamento contínuo?</p>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox" class="check-gestor" />
+          <div>
+            <strong>2. Busca Ativa / Visitas Domiciliares no território</strong> <span class="nota-pill">C2, C3, C4, C5, C6</span>
+            <p style="margin-top:4px; font-size:0.88rem; color:#cbd5e1;">Há carga horária e rotas planejadas para visitas domiciliares periódicas e busca ativa?</p>
+          </div>
+        </label>
+
+        <label class="checklist-item">
+          <input type="checkbox" class="check-gestor" />
+          <div>
+            <strong>3. Procedimentos de Rotina (PA, Peso, Altura, Vacina) em fluxo contínuo</strong> <span class="nota-pill">C2, C3, C4, C5, C6</span>
+            <p style="margin-top:4px; font-size:0.88rem; color:#cbd5e1;">Há cobertura contínua e registro simultâneo/qualificado dos procedimentos de rotina?</p>
+          </div>
+        </label>
+
+        <div class="callout" style="margin-top:18px;">
+          <strong>Próximos Passos:</strong> Solicitamos que cada equipe analise as sugestões de distribuição de carga horária e fluxos operacionais contidos neste guia. A adequação das escalas de trabalho é fundamental para garantirmos uma APS forte, resolutiva e sustentável. Contamos com o empenho de todos na implementação destas diretrizes. Atenciosamente,
+        </div>
+      </div>
+    </section>
+
+    <!-- Fontes -->
+    <section id="fontes" class="section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Fontes Referenciadas</h2>
+          <p class="section-desc">Notas Metodológicas C1 a C7 do Ministério da Saúde (2024).</p>
+        </div>
+      </div>
+
+      <div class="sources-grid">
+        <div class="source-chip"><strong>Nota Metodológica C1 • Pág. 1 e 3</strong>Mais acesso à APS; definição de demanda programada e espontânea.</div>
+        <div class="source-chip"><strong>Nota Metodológica C2 • Pág. 1, 5 e 6</strong>Cuidado no desenvolvimento infantil; pontuação (100 pts), consultas, peso/altura e vacinas (ex.: Hepatite B).</div>
+        <div class="source-chip"><strong>Nota Metodológica C3 • Pág. 1, 2, 5, 6, 7 e 8</strong>Cuidado na gestação e puerpério; 1ª consulta até 12ª sem., ≥7 consultas/PA, dTpa (cód. 57), VD, CBOs.</div>
+        <div class="source-chip"><strong>Nota Metodológica C4 • Pág. 1, 2, 4 e 5</strong>Cuidado da pessoa com diabetes; consulta, PA, peso/altura e VD.</div>
+        <div class="source-chip"><strong>Nota Metodológica C5 • Pág. 1, 4 e 5</strong>Cuidado da pessoa com hipertensão; consulta, PA (6m), peso+altura simultâneos (12m) e VD.</div>
+        <div class="source-chip"><strong>Nota Metodológica C6 • Pág. 1, 4 e 5</strong>Cuidado da pessoa idosa; consulta, peso+altura simultâneos, 2 VDs (intervalo ≥30 dias) e Influenza (cód. 33).</div>
+        <div class="source-chip"><strong>Nota Metodológica C7 • Pág. 5 e 6</strong>Cuidado da mulher na prevenção do câncer; rastreamento colo do útero (25–64 anos) e HPV (9–14 anos).</div>
+      </div>
+    </section>
+
+    <footer class="footer-note">
+      Sistema Alcance • Gestão Territorial, Indicadores e Qualificação na APS — Baseado nas Notas Metodológicas C1 a C7 (Ministério da Saúde, 2024).
+    </footer>
+  </div>
+
+  <script>
+    // Alternância de carga horária (40h / 30h / 20h)
+    const botoesCarga = document.querySelectorAll('.btn-carga');
+    const paineisCarga = document.querySelectorAll('.workload-panel');
+
+    botoesCarga.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const alvo = btn.getAttribute('data-target');
+
+        botoesCarga.forEach((b) => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+
+        paineisCarga.forEach((panel) => {
+          panel.classList.toggle('active', panel.id === alvo);
+        });
+      });
+    });
+
+    // Filtro da Matriz Operacional
+    const buscaMatriz = document.getElementById('buscaMatriz');
+    const filtroNota = document.getElementById('filtroNota');
+    const linhasMatriz = document.querySelectorAll('#tabelaMatriz tbody tr');
+
+    function aplicarFiltrosMatriz() {
+      const termo = buscaMatriz.value.trim().toLowerCase();
+      const notaSelecionada = filtroNota.value;
+
+      linhasMatriz.forEach((linha) => {
+        const textoLinha = linha.textContent.toLowerCase();
+        const notasLinha = (linha.getAttribute('data-notas') || '').split(' ');
+
+        const correspondeTexto = !termo || textoLinha.includes(termo);
+        const correspondeNota = notaSelecionada === 'TODAS' || notasLinha.includes(notaSelecionada);
+
+        linha.style.display = correspondeTexto && correspondeNota ? '' : 'none';
+      });
+    }
+
+    buscaMatriz.addEventListener('input', aplicarFiltrosMatriz);
+    filtroNota.addEventListener('change', aplicarFiltrosMatriz);
+
+    // Progresso do Checklist de Gestores
+    const checksGestor = document.querySelectorAll('.check-gestor');
+    const barraProgresso = document.getElementById('progressoChecklist');
+    const textoProgresso = document.getElementById('textoProgresso');
+
+    function atualizarProgresso() {
+      const total = checksGestor.length;
+      const marcados = Array.from(checksGestor).filter((c) => c.checked).length;
+      const percentual = Math.round((marcados / total) * 100);
+
+      barraProgresso.style.width = percentual + '%';
+      textoProgresso.textContent = `${marcados} de ${total} itens validados (${percentual}%)`;
+    }
+
+    checksGestor.forEach((c) => c.addEventListener('change', atualizarProgresso));
+  </script>
+</body>
+</html>
